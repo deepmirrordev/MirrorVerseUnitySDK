@@ -75,6 +75,7 @@
 - 配置 API 密钥。用鼠标右键菜单 `Create` -> `MirrorVerse` -> `App Auth Options`来创建一个空的 `appAuthOptions.asset` 资源文件在工程中，填入之前获得的 API 密钥，并将这个资源文件拖到`MirrorScene`预制体对象的`App Auth Options`属性。
 - 工程场景中已有的Unity常用对象看情况需要调整：
     - 事件系统：`EventSystem`如果没有，添加一个到工程场景中，交互组件需要。 如下图所示:
+
       <img src="https://github.com/deepmirrordev/MirrorSceneExamples/assets/53016403/67e2af8e-49c3-4c8f-8058-2b1084d22eb5" width="70%">
 
     - 相机：核心组件预制体中含有 AR 相机，如果以 AR 相机为主相机，可以关掉场景原本主相机。

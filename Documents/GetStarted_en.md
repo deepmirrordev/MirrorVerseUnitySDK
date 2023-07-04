@@ -71,6 +71,7 @@ In a Unity scene, arrange these necessary game objects to configure MirrorScene:
 - In your project, right click to open `Create` -> `MirrorVerse` -> `App Auth Options` to create an empty app auth assets, and fill your API key and secret there. Drag the `appAuthOptions.asset` file to the MirrorScene game object's `App Auth Options` property.
 - Some existing Unity game objects need to be configured
     - If not yet, add `EventSystem` to your Unity scene:
+
       <img src="https://github.com/deepmirrordev/MirrorSceneExamples/assets/53016403/67e2af8e-49c3-4c8f-8058-2b1084d22eb5" width="70%">
 
     - The core component prefab contains an AR camera. Remove or deactive original normal camera if there are any.
