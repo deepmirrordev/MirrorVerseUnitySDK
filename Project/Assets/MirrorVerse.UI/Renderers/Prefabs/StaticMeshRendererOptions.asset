@@ -1,0 +1,26 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b6a55dd4e397bd04a98add7a3f580d54, type: 3}
+  m_Name: StaticMeshRendererOptions
+  m_EditorClassIdentifier: 
+  visible: 1
+  collidable: 1
+  withOcclusion: 1
+  castsShadow: 0
+  receivesShadow: 1
+  defaultMaterials:
+  - {fileID: 2100000, guid: e048547b061fce54ea485c2c7a025c16, type: 2}
+  - {fileID: 2100000, guid: b18a204cdf668bf479c544bd7af08f6f, type: 2}
+  textureMaterial: {fileID: 2100000, guid: 509695eec412d9543845c40345db8af3, type: 2}
+  occlusionMaterial: {fileID: 2100000, guid: 28eddc6bc314fcf428b320b177bf5d25, type: 2}
+  occlusionShadowCasterMaterial: {fileID: 2100000, guid: 3067febfab094af4c8f07a1323cf2fbd, type: 2}
+  shadowReceiverMaterial: {fileID: 2100000, guid: 30c5f515767db244fb2c80d1ba35c45a, type: 2}

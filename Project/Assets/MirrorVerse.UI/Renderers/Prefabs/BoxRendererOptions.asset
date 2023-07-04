@@ -1,0 +1,24 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 35dc1be47f3482945992f0b0ff85253c, type: 3}
+  m_Name: BoxRendererOptions
+  m_EditorClassIdentifier: 
+  visible: 0
+  lineMaterial: {fileID: 2100000, guid: 9018e5fe429e78f4ea634a52d71cbf41, type: 2}
+  textFont: {fileID: 12800000, guid: f373f3c117e800244a44518d79f2fccf, type: 3}
+  paletteColors:
+  - {r: 0.9647059, g: 0.31764707, b: 0.11372549, a: 0.627451}
+  - {r: 1, g: 0.7058824, b: 0, a: 0.627451}
+  - {r: 0.49803922, g: 0.72156864, b: 0, a: 0.627451}
+  - {r: 0.050980393, g: 0.17254902, b: 0.32941177, a: 0.627451}
+  - {r: 0.77254903, g: 0.49411765, b: 0.8392157, a: 0.627451}
+  - {r: 0.08235294, g: 0.40784314, b: 0.8117647, a: 0.627451}
