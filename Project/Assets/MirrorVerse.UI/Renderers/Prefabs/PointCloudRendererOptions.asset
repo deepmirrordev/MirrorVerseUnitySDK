@@ -1,0 +1,27 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 16bd923a6556b3942af83931e5f2c252, type: 3}
+  m_Name: PointCloudRendererOptions
+  m_EditorClassIdentifier: 
+  transparentMode: 0
+  drawBounds: 20
+  diskSides: 16
+  pointSize: 0.01
+  fadeInDuration: 2
+  fadeOutDuration: 1
+  displayDistance: 5
+  pointPerSec: 1000
+  peekPointPerSec: 5000
+  inflationScale: 1.5
+  opacity: 1
+  pointCloudMaterial: {fileID: 2100000, guid: 51e33ef256a094440a4ce93ee74c369f, type: 2}
+  cameraBackgroundMaskPrefab: {fileID: 8443773959716616163, guid: 74c2f79cb33b68c43904633107948383, type: 3}

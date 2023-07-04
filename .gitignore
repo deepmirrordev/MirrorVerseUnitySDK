@@ -1,0 +1,6 @@
+# git-credentials
+*.git-credentials
+
+# Visual Studio cache directory
+.vs/
+.vscode/

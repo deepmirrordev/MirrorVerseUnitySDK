@@ -1,0 +1,16 @@
+{
+    "name": "MirrorVerse.UI.Renderers",
+    "rootNamespace": "",
+    "references": [
+        "GUID:7f654cc48ed3c9140a9fa51a7241a6be"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}

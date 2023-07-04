@@ -1,0 +1,19 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ed4d250bbd84318489680cef5bc9e1ef, type: 3}
+  m_Name: ImmediateMeshRendererOptions
+  m_EditorClassIdentifier: 
+  visible: 1
+  materials:
+  - {fileID: 2100000, guid: 49d2ffff123fda04ca7836a6439427f0, type: 2}
+  - {fileID: 2100000, guid: f077da39295eb7c4d9e5bb64bdafcfdd, type: 2}
+  layer: 0

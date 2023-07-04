@@ -1,0 +1,45 @@
+@startuml
+(Uninitialized) as S_uninit
+(Idle) as S_idle
+package Preparing {
+    (Standby) as S_standby
+    (Capturing) as S_capturing
+    (Processing) as S_processing
+    (Downloading) as S_downloading
+}
+(Ready) as S_ready
+(Localizing) as S_localizing
+
+note right of S_standby
+    Available info:
+    GetSceneInfo()
+    ShowMarker()
+end note
+note right of S_ready
+    Available info:
+    GetSceneMeshWrapperObject()
+end note
+note right of S_localizing
+    Available info:
+    GetLocalizationResult()
+end note
+note as N_all
+    Available info:
+    GetOperationState()
+    GetOriginMode()
+    GetCurrentCursorPose()
+end note
+
+S_uninit -down-> S_idle : Reinitialize()
+S_idle -down-> S_standby : CreateScene()
+S_standby -down-> S_capturing : StartSceneStream()
+S_capturing -left-> S_capturing : ResetSceneStream()
+S_capturing --up--> S_idle : ExitScene()
+S_capturing -down-> S_processing : FinishSceneStream()\n or Remote signal
+S_processing -down-> S_downloading : Remote signal
+S_downloading -down-> S_ready: Remote signal
+S_ready -down-> S_localizing : StartLocalization()
+S_localizing -up-> S_ready : StopLocalization()
+S_localizing -left-> S_idle : ExitScene()
+
+@enduml
