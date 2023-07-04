@@ -8,13 +8,13 @@
 ## Dependencies
 
 - Unity Version 2021.3 or above.
-- URP (Universal Render Pipeline) 12.1.6 or above. `MirrorVerse SDK` uses URP for rendering.
+- URP (Universal Render Pipeline) 12.1.6 or above. `MirrorVerse SDK` uses URP for rendering. Please refer to [Installing AR Foundation](https://docs.unity3d.com/Packages/com.unity.xr.arfoundation@4.2/manual/index.html#installing-ar-foundation) for more details.
 - AR Foundation 4.2.6 or above with ARCore and ARKit plugins.
 
 
 ## Installation
 
-- If creating a new project, start a 3D(URP) project from Unity Hub, or make sure the existing project has URP 12.1.6 or above installed.
+- If creating a new project, start a 3D (URP) project from Unity Hub, or make sure the existing project has URP 12.1.6 or above installed.
 - If the project does not have AR Foundation installed, add AR Foundation 4.2.6 or above from Unity Package Manager, and it's coresponding version of ARCore XR Plugin and/or ARKit XR Plugin.
 - Install MirrorVerse Unity SDK
 
@@ -70,7 +70,10 @@ In a Unity scene, arrange these necessary game objects to configure MirrorScene:
     - Customizable UI component: `MirrorSceneDefaultUI`
 - In your project, right click to open `Create` -> `MirrorVerse` -> `App Auth Options` to create an empty app auth assets, and fill your API key and secret there. Drag the `appAuthOptions.asset` file to the MirrorScene game object's `App Auth Options` property.
 - Some existing Unity game objects need to be configured
-    - If not yet, add `EventSytem` to your Unity scene.
+    - If not yet, add `EventSystem` to your Unity scene:
+
+      <img src="https://github.com/deepmirrordev/MirrorSceneExamples/assets/53016403/67e2af8e-49c3-4c8f-8058-2b1084d22eb5" width="70%">
+
     - The core component prefab contains an AR camera. Remove or deactive original normal camera if there are any.
     - Adjust the lighting in the Unity scene to get the best AR effect on real device.
 
