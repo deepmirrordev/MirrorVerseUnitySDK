@@ -76,6 +76,7 @@
 - 工程场景中已有的Unity常用对象看情况需要调整：
     - 事件系统：`EventSystem`如果没有，添加一个到工程场景中，交互组件需要。 如下图所示:
       <img src="https://github.com/deepmirrordev/MirrorSceneExamples/assets/53016403/67e2af8e-49c3-4c8f-8058-2b1084d22eb5" width="70%">
+
     - 相机：核心组件预制体中含有 AR 相机，如果以 AR 相机为主相机，可以关掉场景原本主相机。
     - 光源：默认的光源`Directional Light`参数可以直接使用，但效果如果不够好，或者工程场景中还有其他光源，可以调整光源参数以达到最好的AR效果。
 

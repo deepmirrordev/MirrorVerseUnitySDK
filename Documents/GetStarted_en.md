@@ -72,6 +72,7 @@ In a Unity scene, arrange these necessary game objects to configure MirrorScene:
 - Some existing Unity game objects need to be configured
     - If not yet, add `EventSystem` to your Unity scene:
       <img src="https://github.com/deepmirrordev/MirrorSceneExamples/assets/53016403/67e2af8e-49c3-4c8f-8058-2b1084d22eb5" width="70%">
+
     - The core component prefab contains an AR camera. Remove or deactive original normal camera if there are any.
     - Adjust the lighting in the Unity scene to get the best AR effect on real device.
 
