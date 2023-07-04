@@ -15,9 +15,9 @@
 
 ## 安装
 
-- 如果是新工程，可以在Unity Hub中创建3D(URP)工程。或者确保当前工程安装了URP 12.1.6或以上版本
+- 如果是新工程，可以在Unity Hub中创建3D (URP)工程。或者确保当前工程安装了URP 12.1.6或以上版本
 
-- 如果工程还未安装 AR Foundation，可在 Unity Package Manager 里面安装 AR Foundation 4.2.6 或以上版本，以及相应版本的 ARCore XR Plugin 和 ARKit XR Plugin，以支持 Android 和 iOS 平台的打包。
+- 如果工程还未安装 AR Foundation，可在 Unity Package Manager 里面安装 AR Foundation 4.2.6 或以上版本，以及相应版本的 ARCore XR Plugin 和 ARKit XR Plugin，以支持 Android 和 iOS 平台的打包。具体可以参见[Installing AR Foundation](https://docs.unity3d.com/Packages/com.unity.xr.arfoundation@4.2/manual/index.html#installing-ar-foundation)。
 
 - 安装 MirrorVerse Unity SDK
 
@@ -74,7 +74,8 @@
     - 可替换的交互组件：`MirrorSceneDefaultUI`
 - 配置 API 密钥。用鼠标右键菜单 `Create` -> `MirrorVerse` -> `App Auth Options`来创建一个空的 `appAuthOptions.asset` 资源文件在工程中，填入之前获得的 API 密钥，并将这个资源文件拖到`MirrorScene`预制体对象的`App Auth Options`属性。
 - 工程场景中已有的Unity常用对象看情况需要调整：
-    - 事件系统：`EventSystem` 如果没有，添加一个到工程场景中，交互组件需要。
+    - 事件系统：`EventSystem`如果没有，添加一个到工程场景中，交互组件需要。 如下图所示:
+      <img src="https://github.com/deepmirrordev/MirrorSceneExamples/assets/53016403/67e2af8e-49c3-4c8f-8058-2b1084d22eb5" width="70%">
     - 相机：核心组件预制体中含有 AR 相机，如果以 AR 相机为主相机，可以关掉场景原本主相机。
     - 光源：默认的光源`Directional Light`参数可以直接使用，但效果如果不够好，或者工程场景中还有其他光源，可以调整光源参数以达到最好的AR效果。
 
