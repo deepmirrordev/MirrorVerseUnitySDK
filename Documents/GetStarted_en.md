@@ -10,6 +10,7 @@
 - Unity Version 2021.3 or above.
 - URP (Universal Render Pipeline) 12.1.6 or above. `MirrorVerse SDK` uses URP for rendering. Please refer to [Installing AR Foundation](https://docs.unity3d.com/Packages/com.unity.xr.arfoundation@4.2/manual/index.html#installing-ar-foundation) for more details.
 - AR Foundation 4.2.6 or above with ARCore and ARKit plugins.
+- Git LFS latest version. This SDK requries LFS to work. Please make sure [Git LFS](https://git-lfs.com/) has installed.
 
 
 ## Installation
