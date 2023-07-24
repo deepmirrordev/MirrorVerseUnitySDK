@@ -59,7 +59,10 @@
         - 在 `Identification` -> `Minimum API Level` 中选择 `API level 28`
         - 在 `Configuration` -> `Scripting Backend` 中选择 `IL2CPP` （而不是 `Mono`）
         - 在 `Configuration` -> `Target Architectures` 中选择 `ARM64` （其他不支持）
-        
+- 在iOS平台上，确保填写了使用相机和位置的描述：
+    - 在工程设置中前往：`Player` -> `iOS标签` -> `Other Settings` 页签：
+        - 在 `Configuration` -> `Camera Usage Description` 中填写相机使用说明
+        - 在 `Configuration` -> `Location Usage Description` 中填写位置使用说明
 - 在工程的 URP 设置中，确保运行或打包时使用的 URP 设置里的 `AR Background Renderer Feature` 渲染特性已被选中启用。默认工程里面，URP 渲染设置文件在`Assets/Settings`目录里面：
       
   <img src="https://github.com/deepmirrordev/MirrorVerseUnitySDK/assets/61708920/00c1c0a3-73e9-4c03-84e7-ed80ad57b8b0" width="70%">
