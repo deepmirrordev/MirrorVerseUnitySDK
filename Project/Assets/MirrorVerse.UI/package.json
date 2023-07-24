@@ -2,10 +2,10 @@
 	"name": "com.deepmirror.mirrorverse.ui",
 	"displayName": "MirrorVerse SDK UI",
 	"description": "Reference user interface implementation for using MirrorVerse SDK",
-	"version": "0.1.0",
+	"version": "0.1.1",
 	"unity": "2021.3",
 	"dependencies": {
-		"com.deepmirror.mirrorverse": "https://github.com/deepmirrorinc/MirrorUnitySDK.git?path=/Project/Assets/MirrorVerse"
+		"com.deepmirror.mirrorverse": "https://github.com/deepmirrorinc/MirrorUnitySDK.git?path=/Project/Assets/MirrorVerse#update_0_1_1"
 	},
 	"license": "MIT",
 	"author": {
