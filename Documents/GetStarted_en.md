@@ -55,6 +55,10 @@
         - Select `Identification` -> `Minimum API Level` to `API level 28`.
         - Select `Configuration` -> `Scripting Backend` to `IL2CPP` instead of `Mono`.
         - Check `Configuration` -> `Target Architectures` to `ARM64` instead of others.
+- Make sure iOS player has correctly configured camera and location usage description.
+    - Under  `Build Settings` -> `Player Settings` -> `Player` -> `iOS` -> `Other Settings`,
+        - Add descripion text for `Configuration` -> `Camera Usage Description` field.
+        - Add descripion text for `Configuration` -> `Location Usage Description` field.
 - Make sure `AR Background Renderer Feature` has been enabled for your active URP renderer setting.
     - Click `Add Renderer Feature` on each of `UniversalRenderPipelineAssetRenderer.asset` file's inspector panel, and select the AR backournd one from the list. By default, the URP renderer settings assets are under `Assets/Settings` folder in Unity project.
 
