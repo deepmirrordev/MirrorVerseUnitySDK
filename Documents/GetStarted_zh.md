@@ -11,7 +11,6 @@
 - Unity Version 2021.3 版本或以上。
 - URP (Universal Render Pipeline) 12.1.6 版本或以上。 MirrorVerse SDK 全部使用 URP 管线。
 - AR Foundation 4.2.6版本或以上，包括相应版本的 ARCore 和 ARKit 插件。
-- Git LFS，推荐使用最新版本。本开发包需要大文件支持，请先确保安装了 [Git LFS](https://git-lfs.com/)。
 
 
 ## 安装
