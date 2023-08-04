@@ -97,7 +97,7 @@ namespace MirrorVerse.UI.Renderers
             if (options.raycastOnMeshEnabled)
             {
                 // If mesh exists, do raycast on mesh.
-                if (staticMeshRenderer.GetMeshObject() != null)
+                if (staticMeshRenderer != null && staticMeshRenderer.GetMeshObject() != null)
                 {
                     // Only raycast on mesh is enabled.
                     raycastHitResult = TriggerRaycastOnStaticMesh();

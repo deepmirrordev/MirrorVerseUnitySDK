@@ -56,12 +56,19 @@ namespace MirrorVerse.UI.Renderers
             _currentClientId = null;
             _hostClientId = null;
             _capturing = false;
-        }
 
-        public override void SetXrPlatformAdapter(XrPlatformAdapter xrPlatformAdapter)
-        {
-            this.xrPlatformAdapter = xrPlatformAdapter;
-            _cameraObject = xrPlatformAdapter.GetCameraObject();
+            if (xrPlatformAdapter == null)
+            {
+                Debug.LogWarning(
+                    "Warning: XR Platform Adapter instance is not set. All following rendering logic are aborted." +
+                    $"Please check if 'XR Platform Adapter' property is correctly assigned.");
+                return;
+            }
+
+            if (xrPlatformAdapter != null)
+            {
+                _cameraObject = xrPlatformAdapter.GetCameraObject();
+            }
 
             if (raycastRenderer != null)
             {
