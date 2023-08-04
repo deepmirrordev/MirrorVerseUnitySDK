@@ -122,7 +122,7 @@ public class MyExampleGame : MonoBehaviour
 ```
 打 Android 包或打 iOS 包后，就可以在相应手机上看到一个简单的 MirrorScene 驱动的 AR 场景。
 
-更多的实机样例，请参见 [MirrorSceneExamples](https://github.com/deepmirrorinc/MirrorSceneExamples) 仓库。
+更多的实机样例，请参见 [MirrorSceneExamples](https://github.com/deepmirrordev/MirrorSceneExamples) 仓库。
 
 
 ## 高级定制

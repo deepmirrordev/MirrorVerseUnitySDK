@@ -7,9 +7,6 @@ namespace MirrorVerse
     // Developer can extend it to customize the visualization when working with AR oprations provided by the system.
     public abstract class SceneRenderer : MonoBehaviour
     {
-        // Core system sets the Xr Platform Adapter reference to the renderer.
-        public abstract void SetXrPlatformAdapter(XrPlatformAdapter xrPlatformAdapter);
-
         // Core system calls when user starts capturing or stops.
         public abstract void SetCapturing(bool capturing, string currentClientId = null, string hostClientId = null);
 

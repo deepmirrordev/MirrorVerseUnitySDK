@@ -61,7 +61,7 @@
 - Make sure `AR Background Renderer Feature` has been enabled for your active URP renderer setting.
     - Click `Add Renderer Feature` on each of `UniversalRenderPipelineAssetRenderer.asset` file's inspector panel, and select the AR backournd one from the list. By default, the URP renderer settings assets are under `Assets/Settings` folder in Unity project.
 
-  <img src="https://github.com/deepmirrordev/MirrorVerseUnitySDK/assets/61708920/00c1c0a3-73e9-4c03-84e7-ed80ad57b8b0" width="70%">
+    <img src="https://github.com/deepmirrordev/MirrorVerseUnitySDK/assets/61708920/00c1c0a3-73e9-4c03-84e7-ed80ad57b8b0" width="70%">
 
 
 ## MirrorScene Setup
@@ -120,7 +120,7 @@ public class MyExampleGame : MonoBehaviour
 ```
 Then build android or iOS package and install on your phone. A simple AR scene powered by `MirrorScene` will be shown.
 
-For more examples, please checkout [MirrorSceneExamples](https://github.com/deepmirrorinc/MirrorSceneExamples) repo.
+For more examples, please checkout [MirrorSceneExamples](https://github.com/deepmirrordev/MirrorSceneExamples) repo.
 
 
 ## Advanced Customization
