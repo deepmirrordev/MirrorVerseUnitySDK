@@ -40,7 +40,7 @@
 
         - After all installed:
 
-            <img src="https://github.com/deepmirrordev/MirrorVerseUnitySDK/assets/61708920/ec9b1345-52c2-4dda-8580-3f3a70686f2f" width="65%">
+            <img src="https://github.com/deepmirrordev/MirrorVerseUnitySDK/assets/61708920/08884668-6012-4019-a73d-0d164693e5b6" width="70%">
 
 
 

@@ -13,19 +13,6 @@ MonoBehaviour:
   m_Name: ARBackgroundRendererFeature
   m_EditorClassIdentifier: 
   m_Active: 1
---- !u!114 &-2635286391232772492
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4d2f36a0074f12e479f2ac0ece019b95, type: 3}
-  m_Name: GrabFeature
-  m_EditorClassIdentifier: 
-  m_Active: 1
 --- !u!114 &11400000
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -80,16 +67,3 @@ MonoBehaviour:
   m_ClusteredRendering: 0
   m_TileSize: 32
   m_IntermediateTextureMode: 1
---- !u!114 &2678195997766292697
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4d2f36a0074f12e479f2ac0ece019b95, type: 3}
-  m_Name: GrabFeature
-  m_EditorClassIdentifier: 
-  m_Active: 1
