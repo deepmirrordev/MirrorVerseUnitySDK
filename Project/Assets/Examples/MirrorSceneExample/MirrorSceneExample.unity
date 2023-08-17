@@ -257,7 +257,7 @@ PrefabInstance:
     - target: {fileID: 499889387190709643, guid: 826e843211eb23d4ca465e992a9e1f75, type: 3}
       propertyPath: appAuthOptions
       value: 
-      objectReference: {fileID: 11400000, guid: 7700ed77bd8968e4985cd02fdcdb108f, type: 2}
+      objectReference: {fileID: 11400000, guid: 0bd4d116198e8174089d0b7f686d1ea0, type: 2}
     - target: {fileID: 520447944724103280, guid: 826e843211eb23d4ca465e992a9e1f75, type: 3}
       propertyPath: m_AnchorMax.y
       value: 0
