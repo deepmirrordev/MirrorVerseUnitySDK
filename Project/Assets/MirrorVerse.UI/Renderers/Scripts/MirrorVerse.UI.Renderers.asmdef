@@ -2,7 +2,9 @@
     "name": "MirrorVerse.UI.Renderers",
     "rootNamespace": "",
     "references": [
-        "GUID:7f654cc48ed3c9140a9fa51a7241a6be"
+        "GUID:15fc0a57446b3144c949da3e2b9737a9",
+        "GUID:7f654cc48ed3c9140a9fa51a7241a6be",
+        "GUID:894ef59be7645e34fa0d6557b67576bf"
     ],
     "includePlatforms": [],
     "excludePlatforms": [],

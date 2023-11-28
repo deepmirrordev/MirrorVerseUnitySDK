@@ -1,0 +1,51 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!21 &2100000
+Material:
+  serializedVersion: 8
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: Mat_ScanLine
+  m_Shader: {fileID: 4800000, guid: 6b625ddb3a4abe444a4347f6871d9584, type: 3}
+  m_ValidKeywords: []
+  m_InvalidKeywords: []
+  m_LightmapFlags: 4
+  m_EnableInstancingVariants: 0
+  m_DoubleSidedGI: 0
+  m_CustomRenderQueue: 3000
+  stringTagMap: {}
+  disabledShaderPasses: []
+  m_SavedProperties:
+    serializedVersion: 3
+    m_TexEnvs:
+    - _MainTex:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _texcoord:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    m_Ints: []
+    m_Floats:
+    - _Depth: 5
+    - _DistanceToCamera: 0
+    - _EnableAnim: 0
+    - _Mask: 1
+    - _MaskHardness: 1
+    - _MaskPower: 1
+    - _MaskRadius: 10
+    - _MultiplyBlend: 0.1
+    - _Power: 50
+    - _ScreenPos: 0
+    - _Speed: 0.5
+    - _StartTime: -1
+    - _Tiling: 0.25
+    - _Time_: 0.4751289
+    m_Colors:
+    - _Colour: {r: 1, g: 1, b: 1, a: 0.68235296}
+    - _Depth: {r: 0, g: 0, b: 0, a: 0}
+    - _Origin: {r: 0, g: 0, b: 0, a: 0}
+  m_BuildTextureStacks: []

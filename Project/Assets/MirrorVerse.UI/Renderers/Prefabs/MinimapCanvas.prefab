@@ -101,12 +101,12 @@ GameObject:
   m_Component:
   - component: {fileID: 1561138156642799317}
   m_Layer: 5
-  m_Name: Window
+  m_Name: DefaultViewport
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1561138156642799317
 RectTransform:
   m_ObjectHideFlags: 0
@@ -345,7 +345,7 @@ Camera:
   m_Enabled: 1
   serializedVersion: 2
   m_ClearFlags: 2
-  m_BackGroundColor: {r: 0.5377358, g: 0.5377358, b: 0.5377358, a: 0.4745098}
+  m_BackGroundColor: {r: 0.5019608, g: 0.5019608, b: 0.5019608, a: 0.1882353}
   m_projectionMatrixMode: 1
   m_GateFitMode: 2
   m_FOVAxisMode: 0
@@ -458,3 +458,4 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   options: {fileID: 11400000, guid: ad256d62839f7130bac37285d9c8400d, type: 2}
+  viewportObject: {fileID: 160485964281773699}

@@ -15,7 +15,7 @@ namespace MirrorVerse.Options
         }
 
         // Whether and how to generate the navigation mesh for the processed mesh.
-        public NavigationMode navigationMode = NavigationMode.Unity;
+        public NavigationMode navigationMode = NavigationMode.None;
 
 
         // The following field has an editor for editing. See NavigationOptionsEditor.

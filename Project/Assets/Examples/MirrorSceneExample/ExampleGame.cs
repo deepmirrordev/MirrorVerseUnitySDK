@@ -1,103 +1,85 @@
 using MirrorVerse;
-using MirrorVerse.UI.MirrorSceneDefaultUI;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
 
 public class ExampleGame : MonoBehaviour
 {
-    public Rigidbody gameCube;
     public Canvas gameUI;
     public GameObject spawnBotButton;
+    public GameObject dropObjectsButton;
     public GameObject botPrefab;
+    public Material objMaterial;
 
     private List<GameObject> _bots = new();
-
-    private void Start()
-    {
-        spawnBotButton.SetActive(false);
-        if (MirrorScene.IsAvailable())
-        {
-            Debug.Log($"MirrorScene API is available.");
-            // Application can listen to some events.
-            MirrorScene.Get().onSceneReady += OnMirrorSceneReady;
-            DefaultUI.Instance.onMenuFinish += OnMenuFinish;
-            DefaultUI.Instance.onMenuCancel += OnMenuCancel;
-
-        }
-        else
-        {
-            Debug.Log($"MirrorScene API is not available.");
-        }
-    }
+    private List<GameObject> _objs = new();
 
     private void OnDestroy()
     {
-        ClearAllBots();
+        ClearAll();
     }
 
-    private void ClearAllBots()
+    public void ClearAll()
     {
+
         foreach (GameObject bot in _bots)
         {
             Destroy(bot);
         }
-        _bots.Clear();
+        _bots.Clear(); 
+        
+        foreach (GameObject obj in _objs)
+        {
+            Destroy(obj);
+        }
+        _objs.Clear();
     }
 
-    public void StartMainMenu()
+    public void HideButtons()
     {
-        Debug.Log($"Example start MirrorScene menu.");
-
-        // Reset the cube.
-        gameCube.isKinematic = true;
-        gameCube.transform.position = Vector3.zero;
-
-        // Clear bots
-        ClearAllBots();
-
-        // Update UI.
-        DefaultUI.Instance.ShowMenu();
-        DefaultUI.Instance.Restart();
         gameUI.gameObject.SetActive(false);
         spawnBotButton.SetActive(false);
+        dropObjectsButton.SetActive(false);
     }
 
-    public void OnMirrorSceneReady(StatusOr<SceneInfo> sceneInfo)
+    public void ShowGameButtons()
     {
-        // Called by MirrorScene system when a scene has processed.
-        if (sceneInfo.HasValue)
-        {
-            Debug.Log($"Example scanned scene is ready to use. {sceneInfo.Value.status}");
-        }
-        else
-        {
-            Debug.Log($"Example scanned scene failed to process.");
-        }
-    }
-
-    public void OnMenuFinish()
-    {
-        // Called by custom finish prefab.
-        Debug.Log($"Example MirrorScene menu finished.");
-        // Update UI.
         gameUI.gameObject.SetActive(true);
         spawnBotButton.SetActive(true);
-
-        // Drop the cube at current cursor.
-        StatusOr<Pose> currentPose = MirrorScene.Get().GetCurrentCursorPose();
-        if (currentPose.HasValue)
-        {
-            gameCube.transform.position = currentPose.Value.position + Vector3.up * 0.5f;
-            gameCube.isKinematic = false;
-        }
+        dropObjectsButton.SetActive(true);
     }
 
-    public void OnMenuCancel()
+    public void ShowMirrorSceneButtons()
     {
-        Debug.Log($"Example MirrorScene menu cancelled.");
         gameUI.gameObject.SetActive(true);
         spawnBotButton.SetActive(false);
+        dropObjectsButton.SetActive(false);
+    }
+
+    public void OnDropButtonClicked()
+    {
+        if (!MirrorScene.Get().GetCurrentCursorPose().HasValue)
+        {
+            Debug.Log($"No cursor.");
+            return;
+        }
+        Vector3 pos = MirrorScene.Get().GetCurrentCursorPose().Value.position;
+        for (int i = 0; i < 30; i++)
+        {
+            PrimitiveType primitiveType = (PrimitiveType)(i % 4);
+            GameObject obj = GameObject.CreatePrimitive(primitiveType);
+            _objs.Add(obj);
+            obj.transform.SetPositionAndRotation(
+                new Vector3(Random.Range(pos.x - 0.2f, pos.x + 0.2f), Random.Range(2.0f, 4.0f), Random.Range(pos.z - 0.2f, pos.z + 0.2f)),
+                Random.rotation);
+            float size = Random.Range(0.01f, 0.1f);
+            obj.transform.localScale = new Vector3(size, size, size);
+            MeshRenderer renderer = obj.GetComponent<MeshRenderer>();
+            renderer.material = objMaterial;
+            Rigidbody rigid = obj.AddComponent<Rigidbody>();
+            rigid.useGravity = true;
+            rigid.isKinematic = false;
+        }
     }
 
     public void OnSpawnButtonClicked()

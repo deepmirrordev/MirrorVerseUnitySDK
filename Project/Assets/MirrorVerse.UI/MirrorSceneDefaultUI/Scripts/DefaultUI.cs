@@ -19,11 +19,35 @@ namespace MirrorVerse.UI.MirrorSceneDefaultUI
 
     public delegate void OnMenuFinish();
     public delegate void OnMenuCancel();
+    public delegate void OnMenuCreateScene();
+    public delegate void OnMenuExitScene();
+    public delegate void OnMenuLoadRecentScene();
+    public delegate void OnMenuJoinScene(string sQRCodeInfo);
+    public delegate (bool, string) OnRequestQRCodeExtraData();
 
     public class DefaultUI : MonoBehaviour
     {
+        // Called when the whole flow finishes with a mirror scene ready for AR game.
         public event OnMenuFinish onMenuFinish = delegate { };
+
+        // Called when the flow is cancelled. No scene in place.
         public event OnMenuCancel onMenuCancel = delegate { };
+
+        // Called when user starts a scene streaming.
+        public event OnMenuCreateScene onMenuCreateScene = delegate { };
+
+        // Called when user exits the scene during streaming or after it's ready.
+        public event OnMenuExitScene onMenuExitScene = delegate { };
+
+        // Called when user loads a recent scene and joins.
+        public event OnMenuLoadRecentScene onMenuLoadRecentScene = delegate { };
+
+        // Called when user joins a scene with QR code.
+        public event OnMenuJoinScene onMenuJoinScene = delegate { };
+
+        // Note: this is optional. Only called if set.
+        public event OnRequestQRCodeExtraData onRequestQRCodeExtraData = null;
+
 
         private const string _RECENT_SCENE_ID_PREF = "MIRRORVERSE_RECENT_SCENE_ID";
         private const string _RECENT_SCENE_TIMESTAMP_PREF = "MIRRORVERSE_RECENT_SCENE_TIMESTAMP";
@@ -49,12 +73,11 @@ namespace MirrorVerse.UI.MirrorSceneDefaultUI
         }
 
         private IMirrorScene _api;
-        private string _currentSceneId;
         private RecentScenePref _recentScenePref;
         private SystemMenuType _currentMenuType = SystemMenuType.NoMenu;
         private TriggerLocalizationState _currentTriggerLocalizationState = TriggerLocalizationState.Default;
         private QrCodeDetectState _currentQrCodeDetectState = QrCodeDetectState.Default;
-
+        private MarkerInfo? _currentQrCodeInfo = null;
         private static DefaultUI _instance;
 
         public static DefaultUI Instance { get { return _instance; } }
@@ -192,8 +215,12 @@ namespace MirrorVerse.UI.MirrorSceneDefaultUI
         {
             if (markerInfo.Status.IsOk)
             {
-                _currentSceneId = markerInfo.Value.sceneId;
+                if (markerInfo.HasValue)
+                {
+                    _currentQrCodeInfo = markerInfo.Value;
+                }
             }
+            _currentQrCodeDetectState = QrCodeDetectState.QrCodeDetected;
             SwitchMenu(SystemMenuType.ConfirmJoinSceneMenu);
         }
 
@@ -242,8 +269,17 @@ namespace MirrorVerse.UI.MirrorSceneDefaultUI
                     _currentMenuType = SystemMenuType.NoMenu;
                     break;
                 case SystemMenuType.StartMenu:
-                    StartMenu.Instance.ShowMenu();
-                    _currentMenuType = SystemMenuType.StartMenu;
+                    if (StartMenu.Instance != null && StartMenu.Instance.gameObject.activeSelf)
+                    {
+                        StartMenu.Instance.ShowMenu();
+                        _currentMenuType = SystemMenuType.StartMenu;
+                    }
+                    else
+                    {
+                        // Note: if developer deactivate the StartMenu prefab, then skip it and directly call Cancel()
+                        // as developer will use their own start UI screen.
+                        Cancel();
+                    }
                     break;
                 case SystemMenuType.ScanSceneMenu:
                     ScanSceneMenu.Instance.ShowMenu();
@@ -274,23 +310,36 @@ namespace MirrorVerse.UI.MirrorSceneDefaultUI
                     _currentMenuType = SystemMenuType.ProcessingMenu;
                     break;
                 case SystemMenuType.FinishMenu:
-                    FinishMenu.Instance.ShowMenu();
-                    _currentMenuType = SystemMenuType.FinishMenu;
+                    if (FinishMenu.Instance != null && FinishMenu.Instance.gameObject.activeSelf)
+                    {
+                        FinishMenu.Instance.ShowMenu();
+                        _currentMenuType = SystemMenuType.FinishMenu;
+                    }
+                    else
+                    {
+                        // Note: if developer deactivate the FinishMenu prefab, then skip it and directly call Finish().
+                        Finish();
+                    }
                     break;
             }
         }
 
-        public void TriggerCreateScene()
+        public Status TriggerCreateScene()
         {
             Status status = _api.CreateScene();
-            if (!status.IsOk)
+            if (status.IsOk)
+            {
+                this.onMenuCreateScene();
+            }
+            else
             {
                 ToastManager.Instance.Show("Failed to create a new scene.");
                 Debug.LogWarning($"Failed to create a new scene. [{status}]");
             }
+            return status;
         }
 
-        public void TriggerJoinScene(string sceneId)
+        public Status TriggerJoinScene(string sceneId)
         {
             Status status = _api.JoinScene(sceneId);
             if (!status.IsOk)
@@ -298,14 +347,19 @@ namespace MirrorVerse.UI.MirrorSceneDefaultUI
                 ToastManager.Instance.Show("Failed to join the given scene.");
                 Debug.LogWarning($"Failed to join the given scene. [{status}, {sceneId}]");
             }
+            return status;
         }
 
-        public void TriggerJoinRecentScene()
+        public void TriggerLoadRecentScene()
         {
             if (HasRecentScene())
             {
                 Debug.Log($"Joining the recent scene. [{_recentScenePref.sceneId}]");
-                TriggerJoinScene(_recentScenePref.sceneId);
+                Status status = TriggerJoinScene(_recentScenePref.sceneId);
+                if (status.IsOk)
+                {
+                    this.onMenuLoadRecentScene();
+                }
             }
             else
             {
@@ -316,8 +370,24 @@ namespace MirrorVerse.UI.MirrorSceneDefaultUI
 
         public void TriggerJoinSceneFromQrCode()
         {
-            _currentQrCodeDetectState = QrCodeDetectState.QrCodeDetected;
-            TriggerJoinScene(_currentSceneId);
+            if (_currentQrCodeInfo != null)
+            {
+                Debug.Log($"Joining the scene from detected QR code. [{_currentQrCodeInfo.Value.sceneId}]");
+                Status status = TriggerJoinScene(_currentQrCodeInfo.Value.sceneId);
+                if (status.IsOk)
+                {
+                    string qrCodeExtraData = "";
+                    if (_currentQrCodeInfo.Value.extraData != null)
+                    {
+                        qrCodeExtraData = System.Text.Encoding.UTF8.GetString(_currentQrCodeInfo.Value.extraData);
+                    }
+                    this.onMenuJoinScene(qrCodeExtraData);
+                }
+            }
+            else
+            {
+                Debug.Log($"No detected QrCode info available.");
+            }
         }
 
         public void TriggerResetScan()
@@ -341,14 +411,21 @@ namespace MirrorVerse.UI.MirrorSceneDefaultUI
             }
         }
 
-        public bool TriggerShowQrCode()
+        public Status TriggerShowQrCode()
         {
-            Status status = _api.ShowMarker();
-            if (status.IsOk)
+            string qrCodeExtraData = "";
+            if (this.onRequestQRCodeExtraData != null)
             {
-                return true;
+                bool isReady;
+                (isReady, qrCodeExtraData) = this.onRequestQRCodeExtraData();
+                if (isReady == false)
+                {
+                    ToastManager.Instance.Show("Failed to show QR code. QR code extra data is requested but not ready.");
+                    return StatusCode.Unavailable;
+                }
             }
-            else
+            Status status = _api.ShowMarker(qrCodeExtraData);
+            if (!status.IsOk)
             {
                 if (status.Code == StatusCode.FailedPrecondition)
                 {
@@ -359,8 +436,8 @@ namespace MirrorVerse.UI.MirrorSceneDefaultUI
                     ToastManager.Instance.Show("Failed to show QR code for the given scene.");
                 }
                 Debug.LogWarning($"Failed to show QR code. [{status}]");
-                return false;
             }
+            return status;
         }
 
         public void TriggerHideQrCode()
@@ -396,9 +473,8 @@ namespace MirrorVerse.UI.MirrorSceneDefaultUI
 
         public void TriggerCancelSceneCapture()
         {
-            ExitScene();
-            ScanSceneMenu.Instance.ResetMenu();
-            SwitchMenu(SystemMenuType.StartMenu);
+            Debug.Log($"Scene streaming has been cancelled.");
+            Restart();
         }
 
         public void ExitScene()
@@ -407,9 +483,11 @@ namespace MirrorVerse.UI.MirrorSceneDefaultUI
             {
                 _api.ExitScene();
             }
-            _currentSceneId = "";
+            _currentQrCodeInfo = null;
             _currentTriggerLocalizationState = TriggerLocalizationState.Default;
             _currentQrCodeDetectState = QrCodeDetectState.Default;
+
+            onMenuExitScene();
         }
 
         public void Restart()
@@ -418,6 +496,22 @@ namespace MirrorVerse.UI.MirrorSceneDefaultUI
             ShowMenu();
             ScanSceneMenu.Instance.ResetMenu();
             SwitchMenu(SystemMenuType.StartMenu);
+        }
+
+        public void RestartToCreate()
+        {
+            ExitScene();
+            ShowMenu();
+            ScanSceneMenu.Instance.ResetMenu();
+            SwitchMenu(SystemMenuType.ScanSceneMenu);
+        }
+
+        public void RestartToJoin()
+        {
+            ExitScene();
+            ShowMenu();
+            SwitchMenu(SystemMenuType.ScanQrCodeMenu);
+            TriggerScanQrCode();
         }
 
         public void Finish()

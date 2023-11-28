@@ -10,11 +10,11 @@ namespace MirrorVerse
 
         public abstract GameObject GetCameraObject();
 
-        public abstract bool GetCameraImage(out ImageData image);
-
         public abstract bool GetCameraIntrinsics(out CameraIntrinsics cameraIntrinsics);
 
-        public abstract bool GetInverseExtrinsicsMatrix(out Matrix4x4 matrix);
+        public abstract bool GetCameraExtrinsics(out Pose cameraExtrinsics);
+
+        public abstract bool GetCameraImagePose(out ImageData cameraImage, out Pose cameraPose, out long timestamp);
 
         public abstract bool GetDevicePose(out Pose devicePose, out long timestamp);
 

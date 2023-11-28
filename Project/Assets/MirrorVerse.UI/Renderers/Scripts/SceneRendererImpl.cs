@@ -17,6 +17,7 @@ namespace MirrorVerse.UI.Renderers
         public DetectedBoxRenderer staticBoxRenderer;
         public AirWallRenderer airWallRenderer;
         public RaycastRenderer raycastRenderer;
+        public ScanLineRenderer scanLineRenderer;
 
         public MarkerRenderer markerRenderer;
         public MinimapRenderer minimapRenderer;
@@ -47,6 +48,7 @@ namespace MirrorVerse.UI.Renderers
                   - StaticBox
                   - AirWall
                   - RaycastCursor
+                  - ScanLine
                   - CanvasRoot
                       - MarkerCanvas
                       - MinimapCanvas
@@ -111,6 +113,12 @@ namespace MirrorVerse.UI.Renderers
                     minimapRenderer.UpdateCurrentClient(_currentClientId);
                     minimapRenderer.ToggleVisibility(true);
                 }
+
+                // Start scanline effect
+                if (scanLineRenderer != null)
+                {
+                    scanLineRenderer.StartEffect(_cameraObject.transform);
+                }
             }
             else
             {
@@ -119,6 +127,11 @@ namespace MirrorVerse.UI.Renderers
                 {
                     minimapRenderer.ToggleVisibility(false);
                     minimapRenderer.ClearAll();
+                }
+                // Stop scanline effect
+                if (scanLineRenderer != null)
+                {
+                    scanLineRenderer.StopEffect();
                 }
             }
         }
@@ -231,7 +244,14 @@ namespace MirrorVerse.UI.Renderers
 
         public override RaycastHitResult? RenderRaycastCursor(Matrix4x4 localToSceneTransform)
         {
-            return raycastRenderer.RenderRaycastCursor(localToSceneTransform);
+            if (raycastRenderer != null)
+            {
+                return raycastRenderer.RenderRaycastCursor(localToSceneTransform);
+            }
+            else
+            {
+                return null;
+            }
         }
 
         public override void ShowMarker(MarkerRenderable markerRenderable)

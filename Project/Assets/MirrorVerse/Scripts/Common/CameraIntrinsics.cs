@@ -1,4 +1,6 @@
-﻿namespace MirrorVerse
+﻿using System;
+
+namespace MirrorVerse
 {
     public enum CameraModel
     {
@@ -6,6 +8,7 @@
         Fisheye
     }
 
+    [Serializable]
     // Represends XR Camera intrinsics informations.
     public struct CameraIntrinsics
     {

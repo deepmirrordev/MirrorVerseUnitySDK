@@ -21,7 +21,7 @@ namespace MirrorVerse.UI.MirrorSceneDefaultUI
                 case "Confirm":
                     ProcessingMenu.Instance.UpdateProcessingText(ProcessingState.Downloading);
                     DefaultUI.Instance.SwitchMenu(SystemMenuType.ProcessingMenu);
-                    DefaultUI.Instance.TriggerJoinRecentScene();
+                    DefaultUI.Instance.TriggerLoadRecentScene();
                     break;
                 case "Cancel":
                     DefaultUI.Instance.SwitchMenu(SystemMenuType.ScanSceneMenu);

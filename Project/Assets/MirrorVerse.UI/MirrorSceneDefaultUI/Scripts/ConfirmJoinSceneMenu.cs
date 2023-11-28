@@ -1,5 +1,3 @@
-using UnityEngine;
-
 namespace MirrorVerse.UI.MirrorSceneDefaultUI
 {
     public class ConfirmJoinSceneMenu : SubMenu<ConfirmJoinSceneMenu>
