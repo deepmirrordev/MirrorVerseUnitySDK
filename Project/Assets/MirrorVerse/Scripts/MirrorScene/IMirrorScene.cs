@@ -39,6 +39,10 @@ namespace MirrorVerse
         // Hides the QR code image if shown.
         void HideMarker();
 
+        // Temporarily skip or unskip the scene streaming. During the skipping period, no frame is captured.
+        // Note that a new stream is started with skip set to false by default.
+        void SkipCaptureFrames(bool shouldSkip);
+
         // Returns the localization result if localized or error status if not localized.
         StatusOr<LocalizationResult> GetLocalizationResult();
 
@@ -90,12 +94,12 @@ namespace MirrorVerse
         // Finishes this client's stream operation and starts to wait for the scene to be processed and downloaded.
         // OnSceneReady is called when the scene is processed and downloaded and ready for localization.
         // State change: Streaming -> Processing -> Downloading -> Ready
-        Status FinishSceneStream(OnSceneReady onSceneReady = null);
+        Status FinishSceneStream(OnSceneReady onSceneReady = null, OnSceneProcessUpdate onSceneProcessUpdate = null);
 
         // Downloads the terrain mesh for a active completely processed scene.
         // OnSceneReady is called when the scene is downloaded and ready for localization.
         // State change: Standby -> Downloading -> Ready
-        Status DownloadSceneMesh(OnSceneReady onSceneReady = null);
+        Status DownloadSceneMesh(OnSceneReady onSceneReady = null, OnSceneDownloadUpdate onSceneDownloadUpdate = null);
 
         // Starts an async operation to localize with the loaded or processed scene with camera images.
         // OnLocalizationUpdate is called there is a pose update of the device in the scene.
@@ -120,6 +124,8 @@ namespace MirrorVerse
         delegate void OnSceneStreamFinish(Status status);
         delegate void OnSceneReady(StatusOr<SceneInfo> sceneInfo);
         delegate void OnLocalizationUpdate(StatusOr<Pose> localizedPose);
+        delegate void OnSceneProcessUpdate(float progress);
+        delegate void OnSceneDownloadUpdate(float progress);
 
         event OnMarkerDetected onMarkerDetected;
         event OnSceneStandby onSceneStandby;
@@ -127,5 +133,7 @@ namespace MirrorVerse
         event OnSceneStreamFinish onSceneStreamFinish;
         event OnSceneReady onSceneReady;
         event OnLocalizationUpdate onLocalizationUpdate;
+        event OnSceneProcessUpdate onSceneProcessUpdate;
+        event OnSceneDownloadUpdate onSceneDownloadUpdate;
     }
 }

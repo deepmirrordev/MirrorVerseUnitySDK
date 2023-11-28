@@ -18,8 +18,8 @@ namespace MirrorVerse.UI.Renderers
 
         private float _shaderTimestampSec;
         private float _lastRenderPointTimestamp;
-        private Queue<MeshProperties> _queuedPoints;
-        private List<MeshProperties> _allPoints;
+        private Queue<MeshProperties> _queuedPoints = new();
+        private List<MeshProperties> _allPoints = new();
         private ComputeBuffer _meshPropertiesBuffer;
         private ComputeBuffer _argsBuffer;
         private int _currentBatch;
@@ -53,8 +53,8 @@ namespace MirrorVerse.UI.Renderers
             CreateDisk();
 
             // Start with no points
-            _allPoints = new List<MeshProperties>();
-            _queuedPoints = new Queue<MeshProperties>();
+            _allPoints.Clear();
+            _queuedPoints.Clear();
             _displayBounds = new Bounds(Vector3.zero, Vector3.one * options.drawBounds);
 
             options.pointCloudMaterial.SetFloat("_fadeInDuration", options.fadeInDuration);

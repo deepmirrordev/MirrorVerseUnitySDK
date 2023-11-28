@@ -1,19 +1,21 @@
-﻿namespace MirrorVerse
+﻿using Unity.Collections;
+namespace MirrorVerse
 {
     public enum ImageFormat
     {
         // The default image format from Android/iOS camera.
-        Yuv420,
+        Yuv420 = 0,
         // Gray scale images from some supported sensors.
-        GrayScale,
+        GrayScale = 1,
         // Encoded format like Jpeg or PNG.
-        Encoded
+        Encoded = 2
     };
 
     // Represents an image buffer.
     public class ImageData
     {
         private ImageFormat _imageFormat;
+        private NativeArray<byte>? _nativeArrayData;
         private byte[] _data;
         private int _width;
         private int _height;
@@ -22,6 +24,22 @@
         {
             get  {
                 return _data;
+            }
+        }
+        
+        public bool HasNativeArrayData
+        {
+            get
+            {
+                return _nativeArrayData.HasValue;
+            }
+        }
+
+        public NativeArray<byte> NativeArrayData
+        {
+            get
+            {
+                return _nativeArrayData.Value;
             }
         }
 
@@ -49,6 +67,14 @@
             }
         }
 
+        public void Dispose()
+        {
+            if (_nativeArrayData.HasValue)
+            {
+                _nativeArrayData.Value.Dispose();
+            }
+        }
+
         public static ImageData NewEncodedImage(byte[] encodedStr, int width, int height)
         {
             ImageData image = new ImageData();
@@ -66,6 +92,16 @@
             ImageData image = new ImageData();
             image._data = data;
             image._imageFormat = imageFormat;  // Yuv420 or GrayScale.
+            image._width = width;
+            image._height = height;
+            return image;
+        }
+
+        public static ImageData NewBitmapImage(NativeArray<byte> nativeArrayData, ImageFormat imageFormat, int width, int height)
+        {
+            ImageData image = new ImageData();
+            image._nativeArrayData = nativeArrayData;
+            image._imageFormat = imageFormat; // Yuv420 or GrayScale.
             image._width = width;
             image._height = height;
             return image;

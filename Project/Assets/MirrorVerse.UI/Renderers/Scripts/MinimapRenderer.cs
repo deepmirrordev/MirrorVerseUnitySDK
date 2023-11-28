@@ -8,6 +8,10 @@ namespace MirrorVerse.UI.Renderers
     {
         public MinimapRendererOptions options;
 
+        // The game object in the scene that minimap should attach to.
+        // If leave empty, the renderer will use a default style minimap canvas at the middle of the screen.
+        public GameObject viewportObject;
+
         private Camera _minimapCamera;
         private Camera _arCamera;
 
@@ -27,6 +31,7 @@ namespace MirrorVerse.UI.Renderers
         public void ToggleVisibility(bool visible)
         {
             gameObject.SetActive(visible);
+            viewportObject.SetActive(visible);
         }
 
         private void Awake()
@@ -36,6 +41,17 @@ namespace MirrorVerse.UI.Renderers
             if (_minimapCamera != null)
             {
                 _minimapCamera.cullingMask = 1 << options.minimapLayer;
+                _minimapCamera.backgroundColor = options.backgroundColor;
+            }
+
+            // Move custom minimap viewport under canvas.
+            Canvas minimapCanvas = GetComponentInChildren<Canvas>();
+            if (viewportObject != null)
+            {
+                if (viewportObject.transform.parent != minimapCanvas.transform)
+                {
+                    viewportObject.transform.SetParent(minimapCanvas.transform);
+                }
             }
         }
 

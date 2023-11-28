@@ -17,7 +17,7 @@ namespace MirrorVerse.Options
         };
 
         // Set the detected box visible or not.
-        public bool visible;
+        public bool visible = false;
 
         // Line material of box edges.
         public Material lineMaterial;

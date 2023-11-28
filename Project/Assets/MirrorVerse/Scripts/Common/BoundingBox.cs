@@ -1,7 +1,9 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
 
 namespace MirrorVerse
 {
+    [Serializable]
     // Represends a bounding box with label.
     public struct BoundingBox
     {

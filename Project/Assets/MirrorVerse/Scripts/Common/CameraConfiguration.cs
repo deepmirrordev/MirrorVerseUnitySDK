@@ -1,5 +1,8 @@
-﻿namespace MirrorVerse
+﻿using System;
+
+namespace MirrorVerse
 {
+    [Serializable]
     // Represents XR camera's configuration, similar to Unity XRCameraConfiguration.
     public struct CameraConfiguration
     {

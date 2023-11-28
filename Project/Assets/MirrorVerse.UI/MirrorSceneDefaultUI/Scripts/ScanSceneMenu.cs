@@ -67,7 +67,7 @@ namespace MirrorVerse.UI.MirrorSceneDefaultUI
                 case "ShowQrCode":
                     if (!_isQrCodeShow)
                     {
-                        if (DefaultUI.Instance.TriggerShowQrCode())
+                        if (DefaultUI.Instance.TriggerShowQrCode().IsOk)
                         {
                             _isQrCodeShow = true;
                         }
@@ -93,7 +93,7 @@ namespace MirrorVerse.UI.MirrorSceneDefaultUI
                     }
                     else
                     {
-                        DefaultUI.Instance.SwitchMenu(SystemMenuType.StartMenu);
+                        DefaultUI.Instance.Restart();
                     }
                     break;
                 default:

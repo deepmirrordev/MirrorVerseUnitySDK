@@ -19,7 +19,7 @@ namespace MirrorVerse.Options
         };
 
         // Whetehr to show point clouds.
-        public bool visible = true;
+        public bool visible = false;
 
         // Bounds for point cloud drawing volume. In meters.
         public int drawBounds = 20;

@@ -81,7 +81,10 @@ namespace MirrorVerse.UI.MirrorSceneDefaultUI
 
         private void OnDestroy()
         {
-            ToastManager.Instance.isLoaded = false;
+            if (ToastManager.Instance != null)
+            {
+                ToastManager.Instance.isLoaded = false;
+            }
         }
     }
 }

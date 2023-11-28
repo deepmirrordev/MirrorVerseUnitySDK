@@ -1,8 +1,10 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
 
 namespace MirrorVerse
 {
     // Represneds device's physical spec.
+    [Serializable]
     public struct DevicePhysicalSpec
     {
         public enum DeviceFormFactor
