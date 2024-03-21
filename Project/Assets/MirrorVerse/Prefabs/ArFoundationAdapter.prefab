@@ -222,7 +222,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3859a92a05d4f5d418cb6ca605290e74, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_AttemptUpdate: 0
+  m_AttemptUpdate: 1
   m_MatchFrameRate: 1
   m_TrackingMode: 2
 --- !u!114 &5543583632965463403
