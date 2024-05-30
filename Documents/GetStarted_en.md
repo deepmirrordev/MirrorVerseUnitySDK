@@ -1,46 +1,43 @@
 # Get Started
 
 ## Request for API Key
-- We are still in early stage. Please visit our home page to learn more about MirrorVerse Platform, and reach out to us to request as early testers.
+- We are still in early stage. Please visit [MirrorScene](https://mirrorscene.deepmirror.com) home page to reach out to us to request as early testers.
 - Once you get the API key and secret, follow the [MirrorScene Setup](#mirrorscene-setup) for how to setup the API key.
 
 
 ## Dependencies
 
-- Unity Version 2021.3 or above.
+- Unity Version 2021.3 or above. If using Unity 2022 or newer version, please completed the prompted convertion for assets inside the SDK packages.
 - URP (Universal Render Pipeline) 12.1.6 or above. `MirrorVerse SDK` uses URP for rendering. Please refer to [Installing AR Foundation](https://docs.unity3d.com/Packages/com.unity.xr.arfoundation@4.2/manual/index.html#installing-ar-foundation) for more details.
 - AR Foundation 4.2.6 or above with ARCore and ARKit plugins.
 
 
 ## Installation
 
-- If creating a new project, start a 3D (URP) project from Unity Hub, or make sure the existing project has URP 12.1.6 or above installed.
+- If creating a new project, start a 3D (URP) project from Unity Hub.
+- If using existing project, make sure it's a URP project with URP 12.1.6 or above installed.
 - If the project does not have AR Foundation installed, add AR Foundation 4.2.6 or above from Unity Package Manager, and it's coresponding version of ARCore XR Plugin and/or ARKit XR Plugin.
 - Install MirrorVerse Unity SDK
+    - The SDK contains two packages:
+        - `MirrorVerse SDK`: Core component to access the SDK. Required.
+        - `MirrorVerse SDK UI`: A set of rendering and UI components to drive the flow and visualize the results. Optional.
 
-    - Import downloaded .unitypackage file of the [SDK releases list](https://github.com/deepmirrordev/MirrorVerseUnitySDK/releases) page.
-        - Simply import all files from the package, and put them to your project properly.
-        - The .unitypackage file includes assets and content from both `MirrorVerse SDK` and `MirrorVerse SDK UI` packages.
-        - These two packages won't show up in Unity Package Manager.
+    - Install packages through tarball files:
+        - Download latest version's .tgz tarball files from the [SDK releases list](https://github.com/deepmirrordev/MirrorVerseUnitySDK/releases) page and save to local drive.
+            - `com.deepmirror.mirrorverse-#.#.#.tgz`
+            - `com.deepmirror.mirrorverse.ui-#.#.#.tgz`
+        - In Unity Package Manager window, click plus sign to add package from tarball with the downloaded files in order.
 
-    - Or add package URLs with Unity Package Manager
-        - MirrorVerse SDK：`https://github.com/deepmirrordev/MirrorVerseUnitySDK.git?path=/Project/Assets/MirrorVerse`
-            - Core component to access the SDK.
-            - You can also add a dependency in `Packages/manifest.json`:
-                ```yaml
-                "com.deepmirror.mirrorverse": "https://github.com/deepmirrordev/MirrorVerseUnitySDK.git?path=/Project/Assets/MirrorVerse"
-                ```
+    - Install packages through git URLs:
+        - In Unity Package Manager window, click plus sign to add package from git URL with the following URLs in order:
+            - `https://github.com/deepmirrordev/MirrorVerseUnitySDK.git?path=/Project/Assets/MirrorVerse`
+            - `https://github.com/deepmirrordev/MirrorVerseUnitySDK.git?path=/Project/Assets/MirrorVerse.UI`
 
-        - MirrorVerse SDK UI：`https://github.com/deepmirrordev/MirrorVerseUnitySDK.git?path=/Project/Assets/MirrorVerse.UI`
-            - A set of rendering and UI components to drive the flow and visualize the results.
-            - You can also add a dependency in `Packages/manifest.json`:
-                ```yaml
-                "com.deepmirror.mirrorverse.ui": "https://github.com/deepmirrordev/MirrorVerseUnitySDK.git?path=/Project/Assets/MirrorVerse.UI"
-                ```
+    - Note: Make sure to install the `MirrorVerse SDK` package first, then the `MirrorVerse SDK UI` package. Their is a dependency from latter to former.
 
-        - After all installed:
+    - After all installed:
 
-            <img src="https://github.com/deepmirrordev/MirrorVerseUnitySDK/assets/61708920/08884668-6012-4019-a73d-0d164693e5b6" width="70%">
+        <img src="https://github.com/deepmirrordev/MirrorVerseUnitySDK/assets/61708920/08884668-6012-4019-a73d-0d164693e5b6" width="70%">
 
 
 
@@ -51,7 +48,7 @@
 - Make sure Android player has correctly configured.
     - Under  `Build Settings` -> `Player Settings` -> `Player` -> `Android` -> `Other Settings`,
         - Select `Rendering` -> `Graphics APIs`, uncheck `Auto Graphics API`, remove `Vulkan` if exists, and keep only `OpenGLES3`.
-        - Select `Identification` -> `Minimum API Level` to `API level 28`.
+        - Select `Identification` -> `Minimum API Level` to `API level 29`.
         - Select `Configuration` -> `Scripting Backend` to `IL2CPP` instead of `Mono`.
         - Check `Configuration` -> `Target Architectures` to `ARM64` instead of others.
 - Make sure iOS player has correctly configured camera and location usage description.
@@ -128,25 +125,27 @@ For more examples, please checkout [MirrorSceneExamples](https://github.com/deep
 ### Customize Visualization
 
 There are several options or configurations that are configurable, like `StaticMeshRendererOptions`, `PointCloudRendererOptions` etc. If you want to override the options, you can:
-- Use right click context menu `Create` -> `MirrorVerse` to create an empty options instance asset, and fill in values yourself.
+- Use right click context menu `Create` -> `MirrorVerse` to create an empty options instance asset, and fill in values yourself. You can use this approach to modify materials or change colors of certain visual effects.
 - Then drag the new asset to the cooresponding property of the `MirrorSceneRenderer` game object.
 
   <img src="https://github.com/deepmirrordev/MirrorVerseUnitySDK/assets/61708920/adb3a637-d7e4-40d8-ac95-09210a699329" width="70%">
 
 - If you want further customization the rendering, you can also override the renderer classes in `/Renderers` folder in `MirrorVerse SDK UI` package. Just implement your own visualization and hook them up to `MirrorSceneRenderer` game object.
-- Or implement entire visualization logic by inheriting `SceneRenderer` interface and replace default rendering components in the prefab.
+- Or implement entire visualization logic by inheriting `SceneRenderer` interface and replace default rendering components in the prefab. You can customize mostly all visual renderings, including mash materials, effects, shadows, cursor visuals, air walls etc.
 
 ### Customize UI Styles
 
-In `MirrorVerse SDK UI` package, a set of default UI component is provided : `MirrorSceneDefaultUI`, which is used in many sample apps come with the SDK. Developer can modify or create a set of new UI component with custom styles.
+In `MirrorVerse SDK UI` package, a set of default UI component is provided : `MirrorSceneDefaultUI`, which is used in many sample apps come with the SDK. Developer can modify or create a set of new UI component with custom styles, or how the scan, enter or exit flows and callbacks are hooked up in applications or games.
 
 ### Customize UI Flows
 
-Developer can also write their own flows of interactions that only uses `MirrorScene` insterface. After `MirrorScene` initialized, the system will transition its states in a graph during user's operations. 
+Developer can also write their own flows of interactions that only uses `MirrorScene` insterface. After `MirrorScene` initialized, the system will transition its states in a graph during user's operations, including single-user (host) flow, and multi-user (host/guest) flows. 
 
 <img src="https://github.com/deepmirrordev/MirrorVerseUnitySDK/assets/61708920/e3dc82b2-075b-45a4-b047-7920dad51680" width="100%">
 
 Developers can use `IMirrorScene` to access information from the system, or operate the system, e.g. start streaming or exit localiztion.  Developers can add UI between events, calls and waitings during the MirrorScene operation flows.  In the diagrams above. The left diagram illustrates the state transitions for a host device, and the right diagram illustrates the state transition graph for a guest.
+
+In this case, developer can drag the core prefab `Packages/MirrorVerse SDK/Prefabs/MirrorScene.prefab` to the scene, and hook up insterfaces and events provided by `IMirrorScene`. Note: This prefab is different from the `MirrorSceneAll.prefab` mentioned in previous section that it does not include `Renderers` or `DefaultUI` components. That said, using this prefab means that all visual and UI logics are handled by developer's application.
 
 Below is a simplest code reference that only uses `IMirrorVerse` interface to hook up the whole flow, including multiple users scenario.
 
