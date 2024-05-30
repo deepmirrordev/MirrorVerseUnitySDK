@@ -11,11 +11,6 @@
   "author": {
     "name": "DeepMirror Inc",
     "email": "support@deepmirror.com",
-    "url": "https://www.deepmirror.com.cn/"
-  },
-  "repository": {
-    "url": "https://github.com/deepmirrordev/MirrorVerseUnitySDK",
-    "type": "git",
-    "revision": "2fe449b17e4106cb7c5f4fd828c3c7b80fe59f10"
+    "url": "https://www.deepmirror.com/mirrorscene"
   }
 }
