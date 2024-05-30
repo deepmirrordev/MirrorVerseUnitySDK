@@ -1,7 +1,7 @@
 # Get Started
 
 ## Request for API Key
-- We are still in early stage. Please visit our home page to learn more about MirrorVerse Platform, and reach out to us to request as early testers.
+- We are still in early stage. Please visit [MirrorScene](https://mirrorscene.deepmirror.com) home page to reach out to us to request as early testers.
 - Once you get the API key and secret, follow the [MirrorScene Setup](#mirrorscene-setup) for how to setup the API key.
 
 
