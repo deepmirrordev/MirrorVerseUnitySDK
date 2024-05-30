@@ -8,42 +8,41 @@
 
 ## Unity版本和包的依赖
 
-- Unity Version 2021.3 版本或以上。
+- Unity Version 2021.3 版本或以上。如果使用2022或更新版本的Unity，请自行升级和完成必要的资源格式转换，转好后不影响使用。
 - URP (Universal Render Pipeline) 12.1.6 版本或以上。 MirrorVerse SDK 全部使用 URP 管线。
 - AR Foundation 4.2.6版本或以上，包括相应版本的 ARCore 和 ARKit 插件。
 
 
 ## 安装
 
-- 如果是新工程，可以在Unity Hub中创建3D (URP)工程。或者确保当前工程安装了URP 12.1.6或以上版本
+- 如果是新工程，可以在Unity Hub中创建3D (URP)工程。
+
+- 如果是已有工程，确保当前工程是URP管线的工程，并且安装了URP 12.1.6或以上版本。
 
 - 如果工程还未安装 AR Foundation，可在 Unity Package Manager 里面安装 AR Foundation 4.2.6 或以上版本，以及相应版本的 ARCore XR Plugin 和 ARKit XR Plugin，以支持 Android 和 iOS 平台的打包。具体可以参见[Installing AR Foundation](https://docs.unity3d.com/Packages/com.unity.xr.arfoundation@4.2/manual/index.html#installing-ar-foundation)。
 
 - 安装 MirrorVerse Unity SDK
 
-    - 在[版本发布列表](https://github.com/deepmirrordev/MirrorVerseUnitySDK/releases)中直接下载 .unitypackage 资产包导入Unity工程
-        - 在工程中导入所有文件即可。
-        - 这个资产包含有`MirrorVerse SDK`和`MirrorVerse SDK UI`两个程序包，是SDK的所有内容。
-        - 用导入方式安装，这两个程序包不会出现在 Unity Package Manager中，由开发者自行在工程中管理。
+    - SDK包含两个程序包，其中：
+        - `MirrorVerse SDK`: 这个包是API的核心组件，必选安装。
+        - `MirrorVerse SDK UI`: 这个包含有常用的界面，渲染和可视化组建，方便快速创建应用，可选安装。
 
-    - 或者使用 Unity Package Manager 通过 Git URL 安装：
-        - MirrorVerse SDK：`https://github.com/deepmirrordev/MirrorVerseUnitySDK.git?path=/Project/Assets/MirrorVerse`
-            - 这个包是API的核心组件
-            - 也可以在 `Packages/manifest.json`文件中添加一行依赖项：
-                ```yaml
-                "com.deepmirror.mirrorverse": "https://github.com/deepmirrordev/MirrorVerseUnitySDK.git?path=/Project/Assets/MirrorVerse"
-                ```
+    - 通过 tarball 文件安装：
+        - 在[版本发布列表](https://github.com/deepmirrordev/MirrorVerseUnitySDK/releases)中下载相应版本两个.tgz包，保存到本地。
+            - `com.deepmirror.mirrorverse-#.#.#.tgz`
+            - `com.deepmirror.mirrorverse.ui-#.#.#.tgz`
+        - 在Unity Package Manager窗口左上角加号添加 tarball 安装方式按顺序安装以上两个文件。
 
-        - MirrorVerse SDK UI：`https://github.com/deepmirrordev/MirrorVerseUnitySDK.git?path=/Project/Assets/MirrorVerse.UI`
-            - 这个包含有常用的界面，渲染和可视化组建，方便快速创建应用
-            - 也可以在 `Packages/manifest.json`文件中添加一行依赖项：
-                ```yaml
-                "com.deepmirror.mirrorverse.ui": "https://github.com/deepmirrordev/MirrorVerseUnitySDK.git?path=/Project/Assets/MirrorVerse.UI"
-                ```
+    - 通过 git URL 安装：
+        - 在Unity Package Manager窗口左上角加号添加 git URL 安装，粘贴以下git URL：
+            - `https://github.com/deepmirrordev/MirrorVerseUnitySDK.git?path=/Project/Assets/MirrorVerse`
+            - `https://github.com/deepmirrordev/MirrorVerseUnitySDK.git?path=/Project/Assets/MirrorVerse.UI`
+    
+    - 注意：请先安装 `MirrorVerse SDK`，再添加 `MirrorVerse SDK UI`，因为两个包之间有依赖关系。
 
-        - 安装好后如下图所示：
+    - 安装好后如下图所示：
 
-            <img src="https://github.com/deepmirrordev/MirrorVerseUnitySDK/assets/61708920/08884668-6012-4019-a73d-0d164693e5b6" width="70%">
+        <img src="https://github.com/deepmirrordev/MirrorVerseUnitySDK/assets/61708920/08884668-6012-4019-a73d-0d164693e5b6" width="70%">
 
 
 ## 工程配置
@@ -55,7 +54,7 @@
 - 在安卓平台上，确保以下配置正确：
     - 在工程设置中前往：`Player` -> `Android标签` -> `Other Settings` 页签：
         - 在 `Rendering` -> `Graphics APIs` 中去除勾选 `Auto Graphics API`, 删除 `Vulkan` 而只保留 `OpenGLES3`
-        - 在 `Identification` -> `Minimum API Level` 中选择 `API level 28`
+        - 在 `Identification` -> `Minimum API Level` 中选择 `API level 29`
         - 在 `Configuration` -> `Scripting Backend` 中选择 `IL2CPP` （而不是 `Mono`）
         - 在 `Configuration` -> `Target Architectures` 中选择 `ARM64` （其他不支持）
 - 在iOS平台上，确保填写了使用相机和位置的描述：
@@ -131,24 +130,26 @@ public class MyExampleGame : MonoBehaviour
 
 在`MirrorVerse SDK UI`程序包中的`Renderers`目录下，含有`MirrorSceneRenderer`预制体和一系列渲染组件的实现。
 
-这些渲染组件都是可以通过选项定制的，比如`StaticMeshRendererOptions`， `PointCloudRendererOptions`等等。开发者可以创建新的选项文件，配置新的参数，覆盖默认的选项。
+这些渲染组件都是可以通过选项定制的，比如`StaticMeshRendererOptions`， `PointCloudRendererOptions`等等。开发者可以创建新的选项文件，配置新的参数，覆盖默认的选项，比如更改材质，配置颜色等等。
 - 用鼠标右键菜单 `Create` -> `MirrorVerse` -> `XXX Options` 创建相应的选项文件，填入新的参数，并将这个文件拖到相应的渲染组件对象属性处。如下图所示。
   
   <img src="https://github.com/deepmirrordev/MirrorVerseUnitySDK/assets/61708920/adb3a637-d7e4-40d8-ac95-09210a699329" width="70%">
 
-开发者可以选择修改重载个别渲染组件，或者重新继承`SceneRenderer`，替换默认的组件来重新开发整个可视化效果。
+开发者可以选择修改重载个别渲染组件，或者重新继承`SceneRenderer`，替换默认的组件来重新开发整个可视化效果，包括Mesh材质，特效，阴影，光标，空气墙等，达到自定义的预期效果。
 
 ### 自定义交互样式
 
-在`MirrorVerse SDK UI`程序包中包含的交互控件 `MirrorSceneDefaultUI`预制体，在 SDK 自带的样例程序中被广泛使用。开发者可以自行修改或者自行开发符合自己应用风格的交互控件，在 MirrorScene 一系列扫描，扫码，进入场景等操作中指定符合开发者工程的风格样式。
+在`MirrorVerse SDK UI`程序包中包含的交互控件`MirrorSceneDefaultUI`预制体，在 SDK 自带的样例程序中被广泛使用。开发者在不改变主流程的情况下，可以自行修改或者自行开发符合自己应用风格的交互控件，包括嵌入应用或游戏中如何触发扫描，扫码，进入场景等操作和回调。
 
 ### 自定义交互流程
 
-开发者还可以自定义整个交互流程。MirrorScene系统启动之后，会进入以下状态流程。
+开发者还可以自定义整个交互流程。MirrorScene系统启动之后，会进入以下状态流程，包括单人Host流程，和多人的Host+Guest流程。
 
 <img src="https://github.com/deepmirrordev/MirrorVerseUnitySDK/assets/61708920/e3dc82b2-075b-45a4-b047-7920dad51680" width="100%">
 
 用户在创建，扫描，加入场景等操作过程中状态会随之改变，或者等待下一步操作。左图为单机或者主机的状态流程，右图为扫码加入者的状态流程。在这种情况下，只需要将`MirrorVerse SDK`程序包里面的核心组件预制体 `Packages/MirrorVerse SDK/Prefabs/MirrorScene.prefab`拖入 Unity 工程的场景中，开发者再通过`IMirrorScene`来获取系统相关信息，或者操作这些流程，比如开始扫描，下载场景，退出等等。
+
+注：这个预制体和`MirrorSceneAll.prefab`不同，里面不包含`Renderers`和`DefaultUI`模块，也就是说可视化和交互都由开发者自身的应用和游戏提供。
 
 以下是一个简单的调用顺序框架，仅使用核心组件`IMirrorVerse`的接口来完成整个流程逻辑，包括多人情形下的加入他人场景流程，而开发者可以自行实现所需的交互流程：
 
