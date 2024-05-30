@@ -7,6 +7,7 @@ namespace MirrorVerse.UI.Renderers
     public class RaycastRenderer : MonoBehaviour
     {
         public RaycastRendererOptions options;
+        public ImmediateMeshRenderer immediateMeshRenderer;
         public StaticMeshRenderer staticMeshRenderer;
         public NavMeshRenderer navMeshRenderer;
 
@@ -28,8 +29,6 @@ namespace MirrorVerse.UI.Renderers
         {
             return _hitResult?.mode;
         }
-
-
 
         public void SetXrPlatformAdapter(XrPlatformAdapter xrPlatformAdapter)
         {
@@ -96,11 +95,19 @@ namespace MirrorVerse.UI.Renderers
             // If raycast has turned on for mesh, check mesh existance first.
             if (options.raycastOnMeshEnabled)
             {
-                // If mesh exists, do raycast on mesh.
+                // If static mesh exists, do raycast on static mesh if collidable.
                 if (staticMeshRenderer != null && staticMeshRenderer.GetMeshObject() != null)
                 {
-                    // Only raycast on mesh is enabled.
                     raycastHitResult = TriggerRaycastOnStaticMesh();
+                    _hitResult = raycastHitResult;
+                    return raycastHitResult;
+                }
+
+                // If immediate mesh exists, do raycast on immediate mesh if collidable.
+                if (immediateMeshRenderer != null)
+                {
+                    // Only raycast on mesh is enabled.
+                    raycastHitResult = TriggerRaycastOnImmediateMesh();
                     _hitResult = raycastHitResult;
                     return raycastHitResult;
                 }
@@ -121,7 +128,7 @@ namespace MirrorVerse.UI.Renderers
         {
             // Update the raycast cursor using raycast detection.
             RaycastHit? hit = null;
-            float distance = 10;
+            float distance = options.maxDistance;
 
             Ray ray = _camera.ScreenPointToRay(new Vector3(Screen.width / 2, Screen.height / 2, 0));
 
@@ -137,7 +144,7 @@ namespace MirrorVerse.UI.Renderers
             foreach (MeshCollider collider in allMeshColliders)
             {
                 if (collider == null || !collider.Raycast(ray, out var currentHit, distance)
-                                        || (currentHit.distance >= distance))
+                                     || (currentHit.distance >= distance))
                 {
                     continue;
                 }
@@ -148,10 +155,34 @@ namespace MirrorVerse.UI.Renderers
             {
                 RaycastHitResult hitResult = new RaycastHitResult();
                 hitResult.mode = RaycastHitMode.Mesh;
-                hitResult.raycastHitPose = new Pose(hit.Value.point,
-                    Quaternion.FromToRotation(Vector3.forward, hit.Value.normal));
+                hitResult.raycastHitPose = new Pose(hit.Value.point, Quaternion.FromToRotation(Vector3.forward, hit.Value.normal));
                 return hitResult;
             }
+            return null;
+        }
+
+        private RaycastHitResult? TriggerRaycastOnImmediateMesh()
+        {
+            MeshCollider meshCollider = null;
+            if (immediateMeshRenderer != null)
+            {
+                meshCollider = immediateMeshRenderer.GetComponent<MeshCollider>();
+            }
+            if (meshCollider != null)
+            {
+                float distance = options.maxDistance;
+                Ray ray = _camera.ScreenPointToRay(new Vector3(Screen.width / 2, Screen.height / 2, 0));
+
+                if (meshCollider.Raycast(ray, out RaycastHit hit, distance))
+                {
+                    //hit.distance < distance;
+                    RaycastHitResult hitResult = new RaycastHitResult();
+                    hitResult.mode = RaycastHitMode.Mesh;
+                    hitResult.raycastHitPose = new Pose(hit.point, Quaternion.FromToRotation(Vector3.forward, hit.normal));
+                    return hitResult;
+                }
+            }
+
             return null;
         }
 

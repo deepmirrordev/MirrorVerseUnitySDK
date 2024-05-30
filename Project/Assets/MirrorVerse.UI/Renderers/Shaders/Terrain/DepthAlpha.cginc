@@ -1,7 +1,8 @@
-﻿float _NearDistance;
-float _FarDistance;
-float _NearAlpha;
+﻿float _NearAlpha;
 float _FarAlpha;
+float _NearDistance;
+float _FarDistance;
+float _CameraScale;
 
 float _remap(float value, float minSrc, float maxSrc, float minDst, float maxDst)
 {
@@ -22,5 +23,5 @@ float _distanceToCamera(float4 vertex)
 float DepthAlpha(float4 vertex)
 {
     float distanceToCamera = _distanceToCamera(vertex);
-    return _remap(distanceToCamera, _NearDistance, _FarDistance, _NearAlpha, _FarAlpha);
+    return _remap(distanceToCamera, _NearDistance * _CameraScale, _FarDistance * _CameraScale, _NearAlpha, _FarAlpha);
 }

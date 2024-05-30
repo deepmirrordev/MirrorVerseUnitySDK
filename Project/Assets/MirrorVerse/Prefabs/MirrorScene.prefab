@@ -50,6 +50,7 @@ MonoBehaviour:
   appAuthOptions: {fileID: 0}
   navigationOptions: {fileID: 11400000, guid: e862ef19827c35e4ba44aa540cd9ef04, type: 2}
   markerOptions: {fileID: 11400000, guid: 5339dc93c21efb84e9eb4c7efcf26e40, type: 2}
+  localizerOptions: {fileID: 11400000, guid: 8f06cf5b814da2a47be1ccaafac1fc0f, type: 2}
 --- !u!1001 &6074409716917666810
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -57,10 +58,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 450117637431711458}
     m_Modifications:
-    - target: {fileID: 2159178030317516218, guid: 767169ff55bf8984e8d362e820b7e759, type: 3}
-      propertyPath: m_TagString
-      value: MainCamera
-      objectReference: {fileID: 0}
     - target: {fileID: 4541738440264779004, guid: 767169ff55bf8984e8d362e820b7e759, type: 3}
       propertyPath: m_RootOrder
       value: 0

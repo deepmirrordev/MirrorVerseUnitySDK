@@ -12,7 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ed4d250bbd84318489680cef5bc9e1ef, type: 3}
   m_Name: MinimapMeshRendererOptions
   m_EditorClassIdentifier: 
-  visible: 1
+  visible: 0
+  collidable: 0
   materials:
   - {fileID: 2100000, guid: b76ff72ba5a42dbf4adea41f3498df7b, type: 2}
   layer: 8

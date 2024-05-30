@@ -13,3 +13,4 @@ MonoBehaviour:
   m_Name: MarkerOptions
   m_EditorClassIdentifier: 
   sideLength: 0.05
+  sideLengthPixelOverride: 700

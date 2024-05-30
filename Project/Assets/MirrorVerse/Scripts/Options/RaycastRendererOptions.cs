@@ -22,5 +22,8 @@ namespace MirrorVerse.Options
 
         // Prefab of the detected plane.
         public GameObject detectedPlanePrefab;
+
+        // Maximum distance of the raycast.
+        public float maxDistance = 10f;
     }
 }

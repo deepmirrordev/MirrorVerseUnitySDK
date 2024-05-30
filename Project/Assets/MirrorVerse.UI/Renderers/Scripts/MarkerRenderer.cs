@@ -23,8 +23,6 @@ namespace MirrorVerse.UI.Renderers
                 qrCodeImage.sprite = Sprite.Create(qrCodeTexture,
                     new Rect(0, 0, qrCodeTexture.width, qrCodeTexture.height),
                     new Vector2(qrCodeTexture.width / 2, qrCodeTexture.height / 2));
-                RectTransform qrCodeImageRect = qrCodeImage.gameObject.GetComponent<RectTransform>();
-                qrCodeImageRect.sizeDelta = markerRenderable.screenSize;
                 return true;
             }
             // Invalid image bytes.

@@ -8,6 +8,9 @@ namespace MirrorVerse.Options
         // Whether to visualize immediate mesh during scene streaming.
         public bool visible = true;
 
+        // Whether the immediate mesh is collidable.
+        public bool collidable = false;
+
         // List of materials for visualizing immediate mesh during scene streaming.
         public Material[] materials;
 

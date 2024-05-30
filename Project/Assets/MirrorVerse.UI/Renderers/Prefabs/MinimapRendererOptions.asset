@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 14c0420914f94e6bac78c174c4a4898d, type: 3}
   m_Name: MinimapRendererOptions
   m_EditorClassIdentifier: 
-  enabled: 1
+  enabled: 0
   minimapLayer: 8
   deviceModelPrefab: {fileID: 1920687603011443639, guid: b939cb4cc66870a4aa2570ee08462b8e, type: 3}
+  backgroundColor: {r: 0.5019608, g: 0.5019608, b: 0.5019608, a: 0.1882353}

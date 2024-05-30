@@ -1,16 +1,21 @@
 {
-	"name": "com.deepmirror.mirrorverse",
-	"displayName": "MirrorVerse SDK",
-	"description": "Unity SDK for MirrorVerse Developer Platform.",
-	"version": "0.1.5",
-	"unity": "2021.3",
-	"dependencies": {
-		"com.unity.render-pipelines.universal": ">=12.1.6"
-	},
-	"license": "Apache-2.0",
-	"author": {
-      "name" : "DeepMirror Inc",
-      "email" : "support@deepmirror.com",
-      "url" : "https://www.deepmirror.com.cn/"
-    }
+  "name": "com.deepmirror.mirrorverse",
+  "displayName": "MirrorVerse SDK",
+  "description": "Unity SDK for MirrorVerse Developer Platform.",
+  "version": "0.1.6",
+  "unity": "2021.3",
+  "dependencies": {
+    "com.unity.render-pipelines.universal": ">=12.1.6"
+  },
+  "license": "Apache-2.0",
+  "author": {
+    "name": "DeepMirror Inc",
+    "email": "support@deepmirror.com",
+    "url": "https://www.deepmirror.com.cn/"
+  },
+  "repository": {
+    "url": "https://github.com/deepmirrordev/MirrorVerseUnitySDK",
+    "type": "git",
+    "revision": "2fe449b17e4106cb7c5f4fd828c3c7b80fe59f10"
+  }
 }
