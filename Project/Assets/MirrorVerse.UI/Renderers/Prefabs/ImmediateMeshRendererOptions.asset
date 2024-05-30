@@ -13,6 +13,7 @@ MonoBehaviour:
   m_Name: ImmediateMeshRendererOptions
   m_EditorClassIdentifier: 
   visible: 1
+  collidable: 0
   materials:
   - {fileID: 2100000, guid: 49d2ffff123fda04ca7836a6439427f0, type: 2}
   - {fileID: 2100000, guid: f077da39295eb7c4d9e5bb64bdafcfdd, type: 2}

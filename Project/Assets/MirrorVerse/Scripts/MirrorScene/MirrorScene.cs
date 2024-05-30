@@ -5,41 +5,46 @@ namespace MirrorVerse
     // Static helper class for common access to the MirrorScene API.
     public static class MirrorScene
     {
-        // Reference of MirrorScene API singleton instance.
         private static IMirrorScene _instance;
 
-        // Whether the API has been initialized.
-        private static bool _initialized;
+        // Registers an API implementation insatnce to this helper.
+        // Usually this is self registered by implementation itself at Awaken step.
+        public static void Register(IMirrorScene instance) {
+            if (_instance == null)
+            {
+                Debug.Log("MirrorScene singleton has been registered.");
+                _instance = instance;
+            }
+            else
+            {
+                Debug.LogWarning("Cannot instantiate multiple MirrorScene implementations.");
+            }
+        }
+
+        // Unregisters the existing API implemetation.
+        // Usually this is self unregistered by implmentation itself at OnDestroy step.
+        public static void Unregister(IMirrorScene instance)
+        {
+            if (_instance == instance)
+            {
+                Debug.Log("MirrorScene singleton has been unregistered.");
+                _instance = null;
+            }
+        }
 
         // Returns the MirrorScene API singleton reference,
-        // or null if MirrorScene game object is not active thus the API is not available.
+        // or null if MirrorScene game object is not loaded in the scene thus the API is not available.
         public static IMirrorScene Get()
         {
-            if (_instance == null && !_initialized)
+            if (_instance != null)
             {
-                // Only examine once.
-                _initialized = true;
-
-                System.Type type = System.Type.GetType("Dm.Core.MirrorSceneImpl", false);
-                if (type != null )
-                {
-                    Object obj = Object.FindObjectOfType(type);
-                    if (obj != null)
-                    {
-                        _instance = (IMirrorScene)obj;
-                        return _instance;
-                    }
-                    else
-                    {
-                        Debug.LogError($"MirrorScene implementation object not found.");
-                    }
-                }
-                else
-                {
-                    Debug.LogError($"MirrorScene implementation type cannot be loaded.");
-                }
+                return _instance;
             }
-            return _instance;
+            else
+            {
+                Debug.Log("MirrorScene implementation is not available.");
+                return null;
+            }
         }
 
         // Whether MirrorScene API is available.

@@ -164,7 +164,14 @@ namespace MirrorVerse.UI.MirrorSceneDefaultUI
             }
             else
             {
-                ToastManager.Instance.Show("Failed to create or join the scene.");
+                if (sceneInfo.Status.Code == StatusCode.ResourceExhausted)
+                {
+                    ToastManager.Instance.Show("Requests too frequent. Try again later.");
+                }
+                else
+                {
+                    ToastManager.Instance.Show("Failed to create or join the scene.");
+                }
                 Debug.LogWarning($"Failed to create or join the scene. [{sceneInfo.Status}]");
                 Restart();
             }

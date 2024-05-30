@@ -1,4 +1,5 @@
 ﻿using MirrorVerse.Options;
+using System;
 using UnityEngine;
 
 namespace MirrorVerse.UI.Renderers
@@ -8,7 +9,8 @@ namespace MirrorVerse.UI.Renderers
     {
         public ImmediateMeshRendererOptions options;
 
-        private GameObject _wrapperObject;
+        private GameObject _rootObject;
+        private bool _meshHasCollision = false;
 
         private void Start()
         {
@@ -17,31 +19,67 @@ namespace MirrorVerse.UI.Renderers
             {
                 gameObject.layer = options.layer;
             }
+            _rootObject = gameObject;
         }
 
         private void Update()
         {
             ToggleVisibility(options.visible);
+            ToggleCollision(options.collidable);
         }
 
         private void ToggleVisibility(bool visible)
         {
-            if (_wrapperObject == null)
-            {
-                return;
-            }
-            if (_wrapperObject.activeSelf == visible)
+            if (_rootObject.activeSelf == visible)
             {
                 // No change. Skip.
                 return;
             }
-            _wrapperObject.SetActive(visible);
+            _rootObject.SetActive(visible);
+        }
+
+        private void ToggleCollision(bool enabled)
+        {
+            if (enabled == _meshHasCollision)
+            {
+                // No change. Skip.
+                return;
+            }
+            _meshHasCollision = enabled;
+            UpdateCollionMesh();
+        }
+
+        private void UpdateCollionMesh()
+        {
+            MeshCollider meshCollider = _rootObject.GetComponent<MeshCollider>();
+            if (_meshHasCollision)
+            {
+                // Update collider from mesh if exists.
+                MeshFilter meshFilter = _rootObject.GetComponent<MeshFilter>();
+                if (meshFilter != null && meshFilter.sharedMesh != null)
+                {
+                    if (meshCollider == null)
+                    {
+                        meshCollider = _rootObject.AddComponent<MeshCollider>();
+                    }
+                    meshCollider.sharedMesh = meshFilter.sharedMesh;
+                }
+            }
+            else
+            {
+                // Remove existing collider.
+                if (meshCollider != null)
+                {
+                    meshCollider.sharedMesh = null;
+                    Destroy(meshCollider);
+                }
+            }
         }
 
         public void RenderMeshObject(MeshRenderable meshRenderable)
         {
-            // Note: Immediate mesh is always draco compressed.
             GetMeshFilter().sharedMesh = meshRenderable.mesh;
+            UpdateCollionMesh();
         }
 
         public void Clear()
@@ -55,16 +93,14 @@ namespace MirrorVerse.UI.Renderers
 
         private MeshFilter GetMeshFilter()
         {
-            GameObject rootObject = _wrapperObject == null ? gameObject : _wrapperObject;
-
-            if (!rootObject.TryGetComponent(out MeshRenderer meshRenderer))
+            if (!_rootObject.TryGetComponent(out MeshRenderer meshRenderer))
             {
-                meshRenderer = rootObject.AddComponent<MeshRenderer>();
+                meshRenderer = _rootObject.AddComponent<MeshRenderer>();
                 meshRenderer.sharedMaterials = options.materials;
             }
-            if (!rootObject.TryGetComponent(out MeshFilter meshFilter))
+            if (!_rootObject.TryGetComponent(out MeshFilter meshFilter))
             {
-                meshFilter = rootObject.AddComponent<MeshFilter>();
+                meshFilter = _rootObject.AddComponent<MeshFilter>();
             }
             return meshFilter;
         }

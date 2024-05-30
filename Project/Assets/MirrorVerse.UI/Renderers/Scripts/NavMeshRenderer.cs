@@ -80,6 +80,11 @@ namespace MirrorVerse.UI.Renderers
                 MeshFilter meshFilter = _rootObject.GetComponent<MeshFilter>();
                 meshFilter.sharedMesh = _meshRenderable.mesh;
             }
+            else
+            {
+                // Clear all if renderable is null.
+                ClearMeshObject();
+            }
         }
 
         public void ResetRenderer()

@@ -1,3 +1,4 @@
+using MirrorVerse.Options;
 using UnityEngine;
 
 namespace MirrorVerse
@@ -38,6 +39,15 @@ namespace MirrorVerse
 
         // Hides the QR code image if shown.
         void HideMarker();
+
+        // Returns the marker options for marker's visual configuration.
+        MarkerOptions GetMarkerOptions();
+
+        // Returns the navigation  options for navigation feature configuration.
+        NavigationOptions GetNavigationOptions();
+
+        // Returns the localizer options for localization feature configuration.
+        LocalizerOptions GetLocalizerOptions();
 
         // Temporarily skip or unskip the scene streaming. During the skipping period, no frame is captured.
         // Note that a new stream is started with skip set to false by default.

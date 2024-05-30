@@ -47,6 +47,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   xrPlatformAdapter: {fileID: 5524987549202686379}
   appAuthOptions: {fileID: 0}
+  localizerOptions: {fileID: 11400000, guid: 8f06cf5b814da2a47be1ccaafac1fc0f, type: 2}
 --- !u!1001 &2511781919733392693
 PrefabInstance:
   m_ObjectHideFlags: 0

@@ -2,12 +2,13 @@ using MirrorVerse;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
+using UnityEngine.UI;
+using static MirrorVerse.Options.NavigationOptions;
 
 public class ExampleGame : MonoBehaviour
 {
     public Canvas gameUI;
-    public GameObject spawnBotButton;
-    public GameObject dropObjectsButton;
+    public GameObject gameButtonPanel;
     public GameObject botPrefab;
     public Material objMaterial;
 
@@ -38,27 +39,24 @@ public class ExampleGame : MonoBehaviour
     public void HideButtons()
     {
         gameUI.gameObject.SetActive(false);
-        spawnBotButton.SetActive(false);
-        dropObjectsButton.SetActive(false);
+        gameButtonPanel.SetActive(false);
     }
 
     public void ShowGameButtons()
     {
         gameUI.gameObject.SetActive(true);
-        spawnBotButton.SetActive(true);
-        dropObjectsButton.SetActive(true);
+        gameButtonPanel.SetActive(true);
     }
 
     public void ShowMirrorSceneButtons()
     {
         gameUI.gameObject.SetActive(true);
-        spawnBotButton.SetActive(false);
-        dropObjectsButton.SetActive(false);
+        gameButtonPanel.SetActive(false);
     }
 
     public void OnDropButtonClicked()
     {
-        if (!MirrorScene.Get().GetCurrentCursorPose().HasValue)
+        if (!MirrorScene.IsAvailable() || !MirrorScene.Get().GetCurrentCursorPose().HasValue)
         {
             Debug.Log($"No cursor.");
             return;
@@ -84,6 +82,11 @@ public class ExampleGame : MonoBehaviour
 
     public void OnSpawnButtonClicked()
     {
+        if (!MirrorScene.IsAvailable() || MirrorScene.Get().GetNavigationOptions().navigationMode != NavigationMode.Unity)
+        {
+            Debug.Log($"Navigation not active.");
+            return;
+        }
         var pose = MirrorScene.Get().GetCurrentCursorPose();
         if (pose.HasValue)
         {
@@ -92,22 +95,41 @@ public class ExampleGame : MonoBehaviour
         }
     }
 
+    public void OnNavButtonToggled(Toggle toggle)
+    {
+        if (!MirrorScene.IsAvailable())
+        {
+            return;
+        }
+        // Toggle navigation.
+        var navOptions = MirrorScene.Get().GetNavigationOptions();
+        if (toggle.isOn)
+        {
+            navOptions.navigationMode = NavigationMode.Unity;
+        }
+        else
+        {
+            navOptions.navigationMode = NavigationMode.None;
+        }
+    }
+
     private void Update()
     {
-        if (MirrorScene.IsAvailable())
+        if (!MirrorScene.IsAvailable())
         {
-            var pose = MirrorScene.Get().GetCurrentCursorPose();
-            if (pose.HasValue)
+            return;
+        }
+        var pose = MirrorScene.Get().GetCurrentCursorPose();
+        if (pose.HasValue && MirrorScene.Get().GetNavigationOptions().navigationMode == NavigationMode.Unity)
+        {
+            foreach (var bot in _bots)
             {
-                foreach (var bot in _bots)
+                var unityNavigationAgent = bot.GetComponent<NavMeshAgent>();
+                if (unityNavigationAgent != null)
                 {
-                    var unityNavigationAgent = bot.GetComponent<NavMeshAgent>();
-                    if (unityNavigationAgent != null)
+                    if (unityNavigationAgent.isOnNavMesh)
                     {
-                        if (unityNavigationAgent.isOnNavMesh)
-                        {
-                            unityNavigationAgent.SetDestination(pose.Value.position);
-                        }
+                        unityNavigationAgent.SetDestination(pose.Value.position);
                     }
                 }
             }

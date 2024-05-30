@@ -582,6 +582,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   options: {fileID: 11400000, guid: cbbab559b77b19f41844f73cd5ea398d, type: 2}
+  immediateMeshRenderer: {fileID: 7154799473333383905}
   staticMeshRenderer: {fileID: 7618446420638302832}
   navMeshRenderer: {fileID: 8220324324194861333}
 --- !u!1 &8661891859114462715
@@ -728,14 +729,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 4475281393479619406}
     m_Modifications:
-    - target: {fileID: 3785962610994221, guid: f166c02af9dfb4b49aca90f1b22088ec, type: 3}
-      propertyPath: m_SizeDelta.x
-      value: -580
-      objectReference: {fileID: 0}
-    - target: {fileID: 3785962610994221, guid: f166c02af9dfb4b49aca90f1b22088ec, type: 3}
-      propertyPath: m_SizeDelta.y
-      value: -1700
-      objectReference: {fileID: 0}
     - target: {fileID: 3687978122875128341, guid: f166c02af9dfb4b49aca90f1b22088ec, type: 3}
       propertyPath: m_Pivot.x
       value: 0
@@ -823,22 +816,6 @@ PrefabInstance:
     - target: {fileID: 5368262016278955823, guid: f166c02af9dfb4b49aca90f1b22088ec, type: 3}
       propertyPath: m_Name
       value: MarkerCanvas
-      objectReference: {fileID: 0}
-    - target: {fileID: 9150780361567866785, guid: f166c02af9dfb4b49aca90f1b22088ec, type: 3}
-      propertyPath: m_AnchorMax.y
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 9150780361567866785, guid: f166c02af9dfb4b49aca90f1b22088ec, type: 3}
-      propertyPath: m_AnchorMin.y
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 9150780361567866785, guid: f166c02af9dfb4b49aca90f1b22088ec, type: 3}
-      propertyPath: m_AnchoredPosition.x
-      value: 30
-      objectReference: {fileID: 0}
-    - target: {fileID: 9150780361567866785, guid: f166c02af9dfb4b49aca90f1b22088ec, type: 3}
-      propertyPath: m_AnchoredPosition.y
-      value: -30
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: f166c02af9dfb4b49aca90f1b22088ec, type: 3}

@@ -6,9 +6,13 @@ namespace MirrorVerse
     // and other XR device/platform specific informations.
     public abstract class XrPlatformAdapter : MonoBehaviour
     {
+        public abstract string GetPlatformInfo();
+
         public abstract TrackingStatus GetTrackingStatus();
 
         public abstract GameObject GetCameraObject();
+
+        public abstract float? GetAmbientBrightness();
 
         public abstract bool GetCameraIntrinsics(out CameraIntrinsics cameraIntrinsics);
 
@@ -27,5 +31,9 @@ namespace MirrorVerse
         public abstract void ToggleDetectedPlaneVisibility(bool visible);
 
         public abstract RaycastHitResult? TriggerRaycastOnPlane(Matrix4x4 transformFromLocalOrigin);
+
+        public abstract bool GetHandControllerRelativePoses(out Pose leftHandControllerPose, out Pose rightHandControllerPose);
+
+        public abstract bool GetHandControllerObjects(out GameObject leftHandController, out GameObject rightHandController);
     }
 }

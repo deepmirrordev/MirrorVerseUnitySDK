@@ -4,10 +4,11 @@
 	{
 	    _LineColor ("Line color", Color) = (0, 0, 0, 1)
 	    _LineSize ("Line size", float) = 0.3
-	    _NearDistance ("Near distance", float) = 0.1
-		_FarDistance ("Far distance", float) = 5
 		_NearAlpha ("Near Alpha", float) = 1
 		_FarAlpha ("Far Alpha", float) = 0
+	    _NearDistance ("Near distance", float) = 0.1
+		_FarDistance ("Far distance", float) = 5
+		_CameraScale ("Camera scale", float) = 1.0
 	}
 	
 	SubShader

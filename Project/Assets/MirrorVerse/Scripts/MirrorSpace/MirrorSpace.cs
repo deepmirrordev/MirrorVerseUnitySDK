@@ -5,41 +5,47 @@ namespace MirrorVerse
     // Static helper class for common access to the MirrorSpace API.
     public static class MirrorSpace
     {
-        // Reference of MirrorSpace API singleton instance.
         private static IMirrorSpace _instance;
 
-        // Whether the API has been initialized.
-        private static bool _initialized;
+        // Registers an API implementation insatnce to this helper.
+        // Usually this is self registered by implementation itself at Awaken step.
+        public static void Register(IMirrorSpace instance)
+        {
+            if (_instance == null)
+            {
+                Debug.Log("MirrorSpace singleton has been registered.");
+                _instance = instance;
+            }
+            else
+            {
+                Debug.LogWarning("Cannot instantiate multiple MirrorSpace implementations.");
+            }
+        }
+
+        // Unregisters the existing API implemetation.
+        // Usually this is self unregistered by implmentation itself at OnDestroy step.
+        public static void Unregister(IMirrorSpace instance)
+        {
+            if (_instance == instance)
+            {
+                Debug.Log("MirrorSpace singleton has been unregistered.");
+                _instance = null;
+            }
+        }
 
         // Returns the MirrorSpace API singleton reference,
-        // or null if MirrorSpace game object is not active thus the API is not available.
+        // or null if MirrorSpace game object is not loaded in the scene thus the API is not available.
         public static IMirrorSpace Get()
         {
-            if (_instance == null && !_initialized)
+            if (_instance != null)
             {
-                // Only examine once.
-                _initialized = true;
-
-                System.Type type = System.Type.GetType("Dm.Core.MirrorSpaceImpl", false);
-                if (type != null)
-                {
-                    Object obj = Object.FindObjectOfType(type);
-                    if (obj != null)
-                    {
-                        _instance = (IMirrorSpace)obj;
-                        return _instance;
-                    }
-                    else
-                    {
-                        Debug.LogError($"MirrorSpace implementation object not found.");
-                    }
-                }
-                else
-                {
-                    Debug.LogError($"MirrorSpace implementation type cannot be loaded.");
-                }
+                return _instance;
             }
-            return _instance;
+            else
+            {
+                Debug.Log("MirrorSpace implementation is not available.");
+                return null;
+            }
         }
 
         // Whether MirrorSpace API is available.

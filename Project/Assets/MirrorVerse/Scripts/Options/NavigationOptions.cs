@@ -11,6 +11,9 @@ namespace MirrorVerse.Options
             None,
 
             // Unity Navigation Mesh support.
+            //
+            // Note: Unity Navigation will crash at runtime if using Xcode 15 for iOS build.
+            // To enable Unity navigation, use Xcode 14 instead.
             Unity
         }
 
