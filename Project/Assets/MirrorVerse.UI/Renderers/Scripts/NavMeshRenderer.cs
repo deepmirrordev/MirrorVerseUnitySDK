@@ -68,14 +68,15 @@ namespace MirrorVerse.UI.Renderers
 
         public void RenderMeshObject(MeshRenderable meshRenderable)
         {
-            if (_rootObject == null)
+            if (meshRenderable != null && meshRenderable.mesh.vertexCount > 0)
             {
-                InitMeshObject();
-            }
-            Debug.Log($"Render nav mesh object: {_rootObject.name}.");
+                // Only render nav mesh if given renderable is not empty.
+                if (_rootObject == null)
+                {
+                    InitMeshObject();
+                }
+                Debug.Log($"Render nav mesh object: {_rootObject.name}.");
 
-            if (meshRenderable != null)
-            {
                 _meshRenderable = meshRenderable;
                 MeshFilter meshFilter = _rootObject.GetComponent<MeshFilter>();
                 meshFilter.sharedMesh = _meshRenderable.mesh;
@@ -111,6 +112,7 @@ namespace MirrorVerse.UI.Renderers
         {
             if (_rootObject != null)
             {
+                Debug.Log($"Clear existing mesh {_rootObject.name}.");
                 Destroy(_rootObject);
                 _meshHasCollision = false;
                 _rootObject = null;

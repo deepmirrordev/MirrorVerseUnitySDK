@@ -23,5 +23,24 @@ namespace MirrorVerse
         public int height;
 
         public CameraModel cameraModel;
+        
+        public bool Equals(CameraIntrinsics other)
+        {
+            if (distortionCoefs.Length != other.distortionCoefs.Length)
+            {
+                return false;
+            }
+            
+            for (int i = 0; i < distortionCoefs.Length; i++)
+            {
+                if (!distortionCoefs[i].Equals(other.distortionCoefs[i]))
+                {
+                    return false;
+                }
+            }
+            
+            return fx.Equals(other.fx) && fy.Equals(other.fy) && cx.Equals(other.cx) && cy.Equals(other.cy) 
+                   && width == other.width && height == other.height && cameraModel == other.cameraModel;
+        }
     }
 }

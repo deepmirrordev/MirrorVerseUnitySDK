@@ -5,12 +5,17 @@ EditorBuildSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Scenes:
-  - enabled: 1
-    path: Assets/Examples/MirrorSceneExample/MirrorSceneExample.unity
+  - enabled: 0
+    path: Assets/Examples/MirrorSceneExample/MirrorSceneExample_DefaultUI.unity
     guid: bc758dca4840d8b45ab27138c7f3a6db
+  - enabled: 1
+    path: Assets/Examples/MirrorSceneExample/MirrorSceneExample_ClassyUI.unity
+    guid: 5b4c199af5a82334a80d0e6e16d5896d
   m_configObjects:
     AR Foundation RemoteARFoundationRemoteLoaderSettings: {fileID: 11400000, guid: 2ec9d2b32bc49bb499383613089f3a8e, type: 2}
     AR Foundation RemoteARFoundationRemoteSessionRecordsData: {fileID: 11400000, guid: d37a7439a14ce844a8392d3fbd0b54a7, type: 2}
     UnityEditor.XR.ARCore.ARCoreSettings: {fileID: 11400000, guid: 93d7653d7168dfa4693e8511c8a79382, type: 2}
+    UnityEditor.XR.AREngine.AREngineSettings: {fileID: 11400000, guid: 2c6557da274eeb54493bce4d751acff3, type: 2}
     UnityEditor.XR.ARKit.ARKitSettings: {fileID: 11400000, guid: 8d50f9acb4ccb484e91681b0197f6b9e, type: 2}
+    com.unity.xr.arfoundation.simulation_settings: {fileID: 11400000, guid: 4f353216941c88544ac2808a47673bb7, type: 2}
     com.unity.xr.management.loader_settings: {fileID: 11400000, guid: fe1bebc918968e04fa13bf38e50020b8, type: 2}

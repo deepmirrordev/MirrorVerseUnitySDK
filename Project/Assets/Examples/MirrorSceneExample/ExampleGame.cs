@@ -62,6 +62,10 @@ public class ExampleGame : MonoBehaviour
             return;
         }
         Vector3 pos = MirrorScene.Get().GetCurrentCursorPose().Value.position;
+        
+        // Just to preserve collider classes.
+        Collider _; _ = new SphereCollider(); _ = new BoxCollider();
+
         for (int i = 0; i < 30; i++)
         {
             PrimitiveType primitiveType = (PrimitiveType)(i % 4);

@@ -10,5 +10,8 @@ namespace MirrorVerse.Options
 
         // Whether to loop the effect forever.
         public bool loop = true;
+
+        // Only work with material with ScanLine shader.
+        public Material material;
     }
 }

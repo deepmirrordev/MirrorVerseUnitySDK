@@ -11,6 +11,7 @@ namespace MirrorVerse
         public IDictionary<string, ClientStreamRenderable> clientStreams;
         public Mesh immediateMesh;
         public ObjectDetectionResult? objectDetection;
+        public int registeredImageCount;
     }
 
     // Data structure carries rendable data for a particular connected client during streaming.
