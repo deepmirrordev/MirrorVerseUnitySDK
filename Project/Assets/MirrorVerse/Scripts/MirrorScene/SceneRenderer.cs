@@ -19,6 +19,9 @@ namespace MirrorVerse
         // Core system sends pose from client.
         public abstract void UpdateClientPose(string clientId, Pose pose);
 
+        // Core system sends registered images count of the scene.
+        public abstract void UpdateRegisteredImageCount(int registeredImageCount);
+
         // Core system requests to render point clouds.
         public abstract void RenderPointCloudsBatch(IDictionary<string, Vector3[]> pointsBatch);
 
@@ -27,6 +30,9 @@ namespace MirrorVerse
 
         // Core system requests to render immediate mesh.
         public abstract void RenderImmediateMesh(MeshRenderable meshRenderable);
+
+        // Whether to render static mesh or not.
+        public abstract bool ShouldRenderStaticMesh();
 
         // Core system requests to render static mesh.
         public abstract void RenderStaticMesh(MeshRenderable meshRenderable);

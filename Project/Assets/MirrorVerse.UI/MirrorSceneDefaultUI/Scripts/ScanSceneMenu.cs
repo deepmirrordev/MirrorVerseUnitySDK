@@ -57,7 +57,7 @@ namespace MirrorVerse.UI.MirrorSceneDefaultUI
                     if (_scanState == ScanState.Default)
                     {
                         SwitchScanState(ScanState.Scanning);
-                        DefaultUI.Instance.TriggerCreateScene();
+                        DefaultUI.Instance.TriggerStartScan();
                     }
                     else
                     {

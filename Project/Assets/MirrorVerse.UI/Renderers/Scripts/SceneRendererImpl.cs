@@ -26,6 +26,7 @@ namespace MirrorVerse.UI.Renderers
         private string _currentClientId;
         private string _hostClientId;
         private bool _capturing;
+        private int _registeredImageCount;
         private Dictionary<string, ClientStreamRenderable> _allClientStreams = new();
 
         private void Start()
@@ -160,6 +161,11 @@ namespace MirrorVerse.UI.Renderers
             minimapRenderer.UpdateClientPose(clientId, pose);
         }
 
+        public override void UpdateRegisteredImageCount(int registeredImageCount)
+        {
+            _registeredImageCount = registeredImageCount;
+        }
+
         public override void RenderPointCloudsBatch(IDictionary<string, Vector3[]> pointsBatch)
         {
             if (pointCloudRenderer != null)
@@ -200,6 +206,11 @@ namespace MirrorVerse.UI.Renderers
             {
                 minimapMeshRenderer.RenderMeshObject(meshRenderable);
             }
+        }
+
+        public override bool ShouldRenderStaticMesh()
+        {
+            return staticMeshRenderer != null;
         }
 
         public override void RenderStaticMesh(MeshRenderable meshRenderable)
@@ -379,6 +390,7 @@ namespace MirrorVerse.UI.Renderers
             streamRenderable.currentClientId = GetCurrentClientId();
             streamRenderable.clientStreams = _allClientStreams;
             streamRenderable.immediateMesh = GetImmediateMesh();
+            streamRenderable.registeredImageCount = _registeredImageCount;
             return streamRenderable;
         }
 

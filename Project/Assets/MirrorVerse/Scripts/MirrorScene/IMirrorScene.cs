@@ -70,7 +70,8 @@ namespace MirrorVerse
         // ================================================================================
 
         // Creates a new empty scene. Returns error status if not successful.
-        // OnSceneStandby is called when the scene has been created in the cloud.
+        // OnSceneStandby is called when the scene has been created in the cloud and is ready to
+        // accept images.
         // State change: Idle -> Standby
         Status CreateScene(OnSceneStandby onSceneStandby = null);
 

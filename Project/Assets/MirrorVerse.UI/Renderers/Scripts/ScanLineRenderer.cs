@@ -1,5 +1,5 @@
 using MirrorVerse.Options;
-using MirrorVerse.UI.RenderFeatures;
+using MirrorVerse.UI.RendererFeatures;
 using System.Collections;
 using System.Collections.Generic;
 using System.Reflection;
@@ -22,30 +22,32 @@ namespace MirrorVerse.UI.Renderers
 
         private Transform _originTransform;
         private ScanEffectStatus _scanEffectStatus = ScanEffectStatus.Stoped;
-        private ScanLineRenderFeature _scanLineRenderFeature;
+        private ScanLineRendererFeature _scanLineRenderFeature;
 
         // Only work with material with ScanLine shader.
         private Material _sharedMaterial;
 
         private void Awake()
         {
-            InitRenderFeature();
+            InitRendererFeature();
 
             // Turn off the effect initially.
             ToggleEffect(false);
+
+            _sharedMaterial = options.material;
         }
 
-        private void InitRenderFeature()
+        private void InitRendererFeature()
         {
             var renderer = (GraphicsSettings.currentRenderPipeline as UniversalRenderPipelineAsset).GetRenderer(0);
             var property = typeof(ScriptableRenderer).GetProperty("rendererFeatures", BindingFlags.NonPublic | BindingFlags.Instance);
             List<ScriptableRendererFeature> features = property.GetValue(renderer) as List<ScriptableRendererFeature>;
             foreach (var feature in features)
             {
-                if (feature.GetType().Name == "ScanLineRenderFeature")
+                if (feature.GetType().Name == "ScanLineRendererFeature")
                 {
-                    _scanLineRenderFeature = (ScanLineRenderFeature)feature;
-                    _sharedMaterial = _scanLineRenderFeature.GetSharedMaterial();
+                    _scanLineRenderFeature = (ScanLineRendererFeature)feature;
+                    _scanLineRenderFeature.Setup(options);
                 }
             }
         }

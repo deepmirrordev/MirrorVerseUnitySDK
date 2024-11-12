@@ -96,6 +96,7 @@ MonoBehaviour:
   m_AutoFocus: 1
   m_LightEstimation: 1
   m_FacingDirection: 1
+  m_RenderMode: 0
 --- !u!114 &62173111542409331
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -168,12 +169,12 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4541738440264779004}
+  - component: {fileID: 7959855873115522206}
   - component: {fileID: 2102739472149065576}
   - component: {fileID: 4096262384834684140}
   - component: {fileID: 5543583632965463403}
   - component: {fileID: 2936932660737059539}
   - component: {fileID: 6248866132219504552}
-  - component: {fileID: 7959855873115522206}
   m_Layer: 0
   m_Name: ArFoundationAdapter
   m_TagString: Untagged
@@ -197,6 +198,18 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &7959855873115522206
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6238092910137063115}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: -754032426, guid: f5b687d90559949469062b48b0f7e719, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &2102739472149065576
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -206,10 +219,14 @@ MonoBehaviour:
   m_GameObject: {fileID: 6238092910137063115}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 520bb47c46cf8624fafb307b7d1b862a, type: 3}
+  m_Script: {fileID: 11500000, guid: e0cb9aa70a22847b5925ee5f067c10a9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   m_Camera: {fileID: 9097639813448563383}
+  m_OriginBaseGameObject: {fileID: 6238092910137063115}
+  m_CameraFloorOffsetObject: {fileID: 0}
+  m_RequestedTrackingOriginMode: 1
+  m_CameraYOffset: 0
 --- !u!114 &4096262384834684140
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -264,15 +281,3 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_RaycastPrefab: {fileID: 0}
---- !u!114 &7959855873115522206
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6238092910137063115}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: -754032426, guid: f5b687d90559949469062b48b0f7e719, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 

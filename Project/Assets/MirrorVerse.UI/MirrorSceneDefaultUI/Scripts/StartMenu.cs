@@ -37,6 +37,8 @@ namespace MirrorVerse.UI.MirrorSceneDefaultUI
             {
                 case "CreateArGame":
                     DefaultUI.Instance.SwitchMenu(SystemMenuType.ScanSceneMenu);
+                    // Create sccene and start capture.
+                    DefaultUI.Instance.TriggerCreateScene();
                     break;
                 case "JoinArGame":
                     DefaultUI.Instance.SwitchMenu(SystemMenuType.ScanQrCodeMenu);

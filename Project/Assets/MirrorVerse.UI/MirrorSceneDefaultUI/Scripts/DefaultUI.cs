@@ -50,7 +50,8 @@ namespace MirrorVerse.UI.MirrorSceneDefaultUI
 
 
         private const string _RECENT_SCENE_ID_PREF = "MIRRORVERSE_RECENT_SCENE_ID";
-        private const string _RECENT_SCENE_TIMESTAMP_PREF = "MIRRORVERSE_RECENT_SCENE_TIMESTAMP";
+        private const string _RECENT_SCENE_EXPIRE_TIMESTAMP_PREF = "MIRRORVERSE_RECENT_SCENE_EXPIRE_TIMESTAMP";
+        private const string _RECENT_SCENE_UPDATE_TIMESTAMP_PREF = "MIRRORVERSE_RECENT_SCENE_UPDATE_TIMESTAMP";
 
         private enum TriggerLocalizationState
         {
@@ -69,7 +70,8 @@ namespace MirrorVerse.UI.MirrorSceneDefaultUI
         public class RecentScenePref
         {
             public string sceneId;
-            public DateTimeOffset timestamp;
+            public long updateTimestampMs;
+            public long expireTimestampMs;
         }
 
         private IMirrorScene _api;
@@ -144,20 +146,23 @@ namespace MirrorVerse.UI.MirrorSceneDefaultUI
                         break;
                     case SceneStatus.Empty:
                     case SceneStatus.Capturing:
-                        Debug.Log("Scene is empty or capturing. Start capture stream...");
-                        status = _api.StartSceneStream();
-                        if (status.IsOk)
+                        // When joining a scene, start the stream immediately.
+                        if (_currentQrCodeDetectState == QrCodeDetectState.QrCodeDetected &&
+                            _currentQrCodeInfo.HasValue &&
+                            _currentQrCodeInfo.Value.sceneId == sceneInfo.Value.sceneId)
                         {
-                            if (_currentQrCodeDetectState == QrCodeDetectState.QrCodeDetected)
+                            Debug.Log("Scene is empty or capturing. Start capture stream...");
+                            status = _api.StartSceneStream();
+                            if (status.IsOk)
                             {
                                 _currentQrCodeDetectState = QrCodeDetectState.HasTriggerCaptureByQrCode;
                                 ScanSceneMenu.Instance.SwitchScanState(ScanState.Scanning);
                             }
-                        }
-                        else
-                        {
-                            ToastManager.Instance.Show("Failed to start scene streaming.");
-                            Debug.LogWarning($"Failed to start scene streaming. [{status}]");
+                            else
+                            {
+                                ToastManager.Instance.Show("Failed to start scene streaming in a joined scene.");
+                                Debug.LogWarning($"Failed to start scene streaming in a joined scene. [{status}]");
+                            }
                         }
                         break;
                 }
@@ -207,7 +212,7 @@ namespace MirrorVerse.UI.MirrorSceneDefaultUI
             if (sceneInfo.Status.IsOk)
             {
                 SwitchMenu(SystemMenuType.FinishMenu);
-                SaveRecentScenePref(sceneInfo.Value.sceneId);
+                SaveRecentScenePref(sceneInfo.Value);
                 TriggerSceneLocalization();
             }
             else
@@ -397,6 +402,17 @@ namespace MirrorVerse.UI.MirrorSceneDefaultUI
             }
         }
 
+        public Status TriggerStartScan()
+        {
+            Status status = _api.StartSceneStream();
+            if (!status.IsOk)
+            {
+                ToastManager.Instance.Show("Failed to start scene streaming.");
+                Debug.LogWarning($"Failed to start scene streaming. [{status}]");
+            }
+            return status;
+        }
+
         public void TriggerResetScan()
         {
             Status status = _api.ResetSceneStream();
@@ -511,6 +527,8 @@ namespace MirrorVerse.UI.MirrorSceneDefaultUI
             ShowMenu();
             ScanSceneMenu.Instance.ResetMenu();
             SwitchMenu(SystemMenuType.ScanSceneMenu);
+            // Create sccene and start capture.
+            TriggerCreateScene();
         }
 
         public void RestartToJoin()
@@ -537,7 +555,20 @@ namespace MirrorVerse.UI.MirrorSceneDefaultUI
 
         public bool HasRecentScene()
         {
-            return _recentScenePref != null;
+            if (_recentScenePref == null)
+            {
+                Debug.Log($"No recent scene stored in pref.");
+                return false;
+            }
+            DateTimeOffset expireTimestamp = DateTimeOffset.FromUnixTimeMilliseconds(_recentScenePref.expireTimestampMs);
+            // Expiration is controlled by core logic. Here compare now and the set expired time.
+            if (((DateTimeOffset)DateTime.Now).CompareTo(expireTimestamp) > 0)
+            {
+                Debug.Log($"Stored recent scene in pref was too old. [{_recentScenePref.sceneId}]");
+                _recentScenePref = null;
+                return false;
+            }
+            return true;
         }
 
         public RecentScenePref GetRecentScenePref()
@@ -545,46 +576,39 @@ namespace MirrorVerse.UI.MirrorSceneDefaultUI
             return _recentScenePref;
         }
 
-        public void SaveRecentScenePref(string sceneId)
+        public void SaveRecentScenePref(SceneInfo scene)
         {
-            DateTimeOffset timestamp = DateTime.Now;
-            PlayerPrefs.SetString(_RECENT_SCENE_TIMESTAMP_PREF, timestamp.ToUnixTimeMilliseconds().ToString());
-            PlayerPrefs.SetString(_RECENT_SCENE_ID_PREF, sceneId);
-            _recentScenePref = new RecentScenePref()
+            if (_recentScenePref != null && _recentScenePref.sceneId == scene.sceneId)
             {
-                sceneId = sceneId,
-                timestamp = timestamp
-            };
-            Debug.Log($"Scene ready, stored to pref. [{sceneId}]");
+                // Already exists, skip saving.
+                Debug.Log($"Scene ready, same scene from pref. [{scene.sceneId}]");
+            }
+            else
+            {
+                PlayerPrefs.SetString(_RECENT_SCENE_ID_PREF, scene.sceneId);
+                PlayerPrefs.SetString(_RECENT_SCENE_UPDATE_TIMESTAMP_PREF, scene.updateTimestamp.ToString());
+                PlayerPrefs.SetString(_RECENT_SCENE_EXPIRE_TIMESTAMP_PREF, scene.expireTimestamp.ToString());
+                _recentScenePref = LoadRecentScenePref();
+                Debug.Log($"Scene ready, stored to pref. [{scene.sceneId}]");
+            }
         }
 
         public RecentScenePref LoadRecentScenePref()
         {
             Debug.Log($"Loading stored recent scene from pref.");
             string sceneId = PlayerPrefs.GetString(_RECENT_SCENE_ID_PREF);
-            if (String.IsNullOrEmpty(sceneId))
+            string updateTimestampString = PlayerPrefs.GetString(_RECENT_SCENE_UPDATE_TIMESTAMP_PREF);
+            string expireTimestampString = PlayerPrefs.GetString(_RECENT_SCENE_EXPIRE_TIMESTAMP_PREF);
+            if (String.IsNullOrEmpty(sceneId) || String.IsNullOrEmpty(updateTimestampString) || String.IsNullOrEmpty(expireTimestampString))
             {
                 Debug.Log($"Stored recent scene not exists.");
-                return null;
-            }
-
-            string epochString = PlayerPrefs.GetString(_RECENT_SCENE_TIMESTAMP_PREF);
-            if (String.IsNullOrEmpty(epochString))
-            {
-                Debug.Log($"Stored recent scene timestamp not exists.");
-                return null;
-            }
-            DateTimeOffset timestamp = DateTimeOffset.FromUnixTimeMilliseconds(long.Parse(epochString));
-            if (((DateTimeOffset)DateTime.Now).CompareTo(timestamp.AddHours(24)) > 0)
-            {
-                // Recent scene was captured earlier than 24 hours ago, skip.
-                Debug.Log($"Stored recent scene in pref was too old. [{sceneId}]");
                 return null;
             }
             return new RecentScenePref()
             {
                 sceneId = sceneId,
-                timestamp = timestamp
+                updateTimestampMs = long.Parse(updateTimestampString),
+                expireTimestampMs = long.Parse(expireTimestampString)
             };
         }
     }

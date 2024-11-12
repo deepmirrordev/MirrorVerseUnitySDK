@@ -1,0 +1,24 @@
+{
+    "name": "MirrorVerse.UI.MirrorSceneClassyUI",
+    "rootNamespace": "",
+    "references": [
+        "GUID:7f654cc48ed3c9140a9fa51a7241a6be",
+        "GUID:27e687386f05d7e4986a6b82ad47a73b",
+        "GUID:b7a16d9f27dfd4770805a4cdc942c190"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [
+        {
+            "name": "xyz.candycoded.hapticfeedback",
+            "expression": "1.0.0",
+            "define": "DM_HAPTICFEEDBACK"
+        }
+    ],
+    "noEngineReferences": false
+}
