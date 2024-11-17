@@ -58,7 +58,7 @@ namespace MirrorVerse.UI.MirrorSceneClassyUI
                 t.gameObject.SetActive(selected);
                 
                 int percent = Mathf.CeilToInt(progress * 100);
-
+                percent = Mathf.Clamp(percent, 0, 100); // Make sure % is within [0, 100].
                 RectTransform progressImageBg = t.GetChild(0).GetComponent<RectTransform>();
                 RectTransform progressImageValue = t.GetChild(0).GetChild(0).GetComponent<RectTransform>();
                 float progressImageValueWidth = Mathf.Clamp(progress * progressImageBg.sizeDelta.x, progressImageValue.sizeDelta.y, progressImageBg.sizeDelta.x);
