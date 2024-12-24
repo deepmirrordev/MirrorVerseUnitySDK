@@ -841,7 +841,6 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
-  source: {fileID: 0}
 --- !u!1 &1414853563057878342
 GameObject:
   m_ObjectHideFlags: 0
@@ -1913,7 +1912,7 @@ MonoBehaviour:
   captureHardLimit: 300
   captureWarningLimit: 250
   tipDuration: 5
-  backButtonDelay: 2
+  backButtonDelay: 0.5
 --- !u!1 &6774024698061241063
 GameObject:
   m_ObjectHideFlags: 0
