@@ -145,7 +145,7 @@
       "url": "https://packages.unity.com"
     },
     "com.unity.xr.arengine": {
-      "version": "file:com.unity.xr.arengine-0.0.2.tgz",
+      "version": "file:com.unity.xr.arengine-0.0.3.tgz",
       "depth": 0,
       "source": "local-tarball",
       "dependencies": {
