@@ -1,0 +1,20 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d98f4013fb41c7b42a1ab62ea5c4d6d7, type: 3}
+  m_Name: ExampleLocalizerOptions
+  m_EditorClassIdentifier: 
+  localizationImageInterval: 2
+  startupEdgeMapId: 20250821T113140+0800_xvnxa_xvnxa018_jmw821
+  globalDescriptorModel: dinov3_vits16
+  localFeatureModel: mobilepoint-64d-g512
+  featureMatcherModel: mobileglue-64d-l3
+  modelForceOverride: 1

@@ -1,103 +1,103 @@
 # Get Started
 
-## Request for API Key
-- We are still in early stage. Please visit our [home page](https://mirrorscene.deepmirror.com) to learn more about MirrorVerse Platform, and reach out to us to request access and purchase our service.
-- Once you get the API key and secret, follow the [Scene Setup](#scene-setup) for how to setup the API key.
+## Request an API Key
+
+- We are still in early stages. Please visit our [home page](https://mirrorscene.deepmirror.com) to learn more about the MirrorVerse Platform, and reach out to request access and purchase the service.
+- Once you have the API key and secret, follow the [Scene Setup](#scene-setup) section below to configure them in your project.
 
 
 ## Unity Version and Dependencies
 
-- Unity Version 2021.3 or above.
-- URP (Universal Render Pipeline) 12.1.11 or above. MirrorVerse SDK uses URP for rendering.
-- AR Foundation 5.1.5 or above.
+- Unity **2022.3** LTS or above (the SDK is built on 2022.3.62f2; Unity 6000.x is also supported).
+- URP (Universal Render Pipeline) **14.0.12** or above. The MirrorVerse SDK uses URP for rendering. Unity 6000.x ships URP 17, which is also supported.
+- AR Foundation **5.1.5** or above (AR Foundation 6.x works on Unity 6000.x).
 
-## Mobile Devices and Operating System
+## Mobile Devices and Operating Systems
+
 - **Android**
-    - Android 10.0 or above for Android mobile phones or tablets which support ARCore v1.42.X or above。Please refer to the Google ARCore's [officla supported devices](https://developers.google.com/ar/devices) list.
-    - Some devices support ARCore but does not have proper version of ARCore installed out of factory. Please install latest ARCore service from app store.
+    - Android 10.0 or above on phones or tablets that support ARCore. Please refer to Google's [official ARCore supported devices](https://developers.google.com/ar/devices) list.
+    - Some devices support ARCore but don't have a recent version of ARCore Services installed out of the box. Install the latest ARCore Services from the Play Store.
 - **iOS**
-    - iOS 12.0 or above for iPhones or iPads and with highest version of ARKit on the devices.
-
+    - iOS 12.0 or above on iPhones or iPads with the corresponding ARKit version.
 - **HarmonyOS**
-    - HarmonyOS 4.0 for Huawei or Honor phones or tablets with AREngine v4.0.0.5 or above.
-    - HarmonyOS Next 5.0 devices are currently not supported.
-
+    - HarmonyOS 4.0 on Huawei or Honor phones / tablets with AREngine v4.0.0.5 or above.
+    - HarmonyOS NEXT 5.0 devices are currently not supported.
 
 
 ## Installation
 
 - **Universal RP**
-    - If creating a new project, start a 3D (URP) project from Unity Hub, or make sure the existing project has URP 12.1.11 or above installed.
+    - For a new project, start from the **3D (URP)** template in Unity Hub. For an existing project, make sure URP 14.0.12 or above is installed (URP 17 on Unity 6000.x).
 
-- **AR Foundation and XR Plugins**
-    - If the project does not have AR Foundation installed, add AR Foundation 5.1.5 or above from Unity Package Manager, and it's coresponding version of ARCore XR Plugin and/or ARKit XR Plugin. Please refer to [Installing AR Foundation](https://docs.unity3d.com/Packages/com.unity.xr.arfoundation@5.1/manual/index.html#installing-ar-foundation) instruction. 
+- **AR Foundation and XR Plug-ins**
+    - If the project doesn't have AR Foundation installed, add **AR Foundation 5.1.5 or above** from Unity Package Manager, along with the matching version of **ARCore XR Plugin** and/or **ARKit XR Plugin**. See the [Installing AR Foundation](https://docs.unity3d.com/Packages/com.unity.xr.arfoundation@5.1/manual/index.html#installing-ar-foundation) instructions.
 
-    - AREngine XR Plugin is not officially supported by Unity. In order to run on HarmonyOS devices that support AREngine, our SDK provides an AREngine Unity XR Plugin ported from open source community. Please download the  `com.unity.xr.arengine-[version].tgz` file from [SDK Releases List](https://github.com/deepmirrordev/MirrorVerseUnitySDK/releases) page, and use  `Package Manager` -> `Add Package from tarball...` menu to install. After installation, this plugin works similar to ARCore XR Plugin, and supports one APK binary running on both ARCore devices and AREngine devices. 
+    - **AREngine XR Plugin** is not officially shipped by Unity. To run on HarmonyOS devices that support AREngine, our SDK provides an AREngine XR Plug-in ported from the open-source community. Download `com.unity.xr.arengine-[version].tgz` from the [SDK Releases](https://github.com/deepmirrordev/MirrorVerseUnitySDK/releases) page and install via `Package Manager` → `Add package from tarball...`. Once installed, it behaves like ARCore XR Plug-in — one APK can run on both ARCore devices and AREngine devices.
 
 - **Install MirrorVerse Unity SDK**
-    - From the [SDK Releases List](https://github.com/deepmirrordev/MirrorVerseUnitySDK/releases) page, download the two .tgz files of MirrorVerse SDK packages, in use  `Package Manager` -> `Add Package from tarball...` menu to install both:
-        - First install `com.deepmirror.mirrorverse-[version].tgz` which is the core library of MirrorVerse SDK.
-        - Then install `com.deepmirror.mirrorverse.ui-[version].tgz` which contains the UI and visualization components of MirrorVerse SDK.
+    - From the [SDK Releases](https://github.com/deepmirrordev/MirrorVerseUnitySDK/releases) page, download the two `.tgz` files and install both via `Package Manager` → `Add package from tarball...` in order:
+        1. `com.deepmirror.mirrorverse-[version].tgz` — the core MirrorVerse SDK.
+        2. `com.deepmirror.mirrorverse.ui-[version].tgz` — reference UI components, depends on the core package, so install second.
 
-- After all installed, it looks as follows:
+- After installation, the Packages window looks like this:
 
     <img src="https://github.com/user-attachments/assets/157ccffe-099f-4ab3-adb9-a60097b44e9a" width="65%">
 
-- If a newer version of MirrorVerse Unity SDK has released, please visit [SDK Releases List](https://github.com/deepmirrordev/MirrorVerseUnitySDK/releases) page to download the latest version of .tgz files.  And re-install the newer version from `Package Manager` -> `Add Package from tarball...` menu in the Unity project.
+- When a newer SDK version is released, download the latest `.tgz` files from the [SDK Releases](https://github.com/deepmirrordev/MirrorVerseUnitySDK/releases) page and reinstall via `Package Manager` → `Add package from tarball...`.
 
 
 ## Configurations
 
-- Make sure the XR plugins are installed and enabled for your target platforms.
-    - Under `XR Plugin-in Management` in settings
-        - Check `ARCore` under Android tab.
-            - Check `AREngine` if HarmonyOS is target platform.
-            - If more than one platform are checked (e.g. both `ARCore` and `AREngine` are checked), uncheck `Initialize XR on Startup`.
-        - Check `ARKit` under iOS tab.
-- Make sure Android player has correctly configured.
-    - Under  `Build Settings` -> `Player Settings` -> `Player` -> `Android` -> `Other Settings`,
-        - Select `Rendering` -> `Graphics APIs`, uncheck `Auto Graphics API`, remove `Vulkan` if exists, and keep only `OpenGLES3`.
-            - If HarmonyOS is target platform, uncheck `Multithreaded Rendering`. AREngine plugin does not support this for now.
-        - Select `Identification` -> `Minimum API Level` to `API level 29`.
-        - Select `Configuration` -> `Scripting Backend` to `IL2CPP` instead of `Mono`.
-        - Check `Configuration` -> `Target Architectures` to `ARM64` instead of others.
-- Make sure iOS player has correctly configured camera and location usage description.
-    - Under  `Build Settings` -> `Player Settings` -> `Player` -> `iOS` -> `Other Settings`,
-        - Add descripion text for `Configuration` -> `Camera Usage Description` field.
-        - Add descripion text for `Configuration` -> `Location Usage Description` field.
-- Make sure `AR Background Renderer Feature` has been enabled for your active URP renderer setting. By default, the URP renderer settings assets are under `Assets/Settings` folder in Unity project.
+- Make sure the XR plug-ins are installed and enabled for your target platforms.
+    - In `Project Settings` → `XR Plug-in Management`:
+        - Android tab: enable `ARCore`.
+            - Also enable `AREngine` if HarmonyOS is a target.
+            - If more than one provider is enabled on the same platform (e.g. both `ARCore` and `AREngine`), uncheck `Initialize XR on Startup` — the SDK will pick the right one at runtime.
+        - iOS tab: enable `ARKit`.
+- Make sure the Android player is correctly configured.
+    - Under `Project Settings` → `Player` → Android tab → `Other Settings`:
+        - `Rendering` → `Graphics APIs`: uncheck `Auto Graphics API`, remove `Vulkan` if present, keep only `OpenGLES3`.
+            - If HarmonyOS is a target, also uncheck `Multithreaded Rendering` — the AREngine plug-in doesn't support it.
+        - `Identification` → `Minimum API Level`: select `API level 29`.
+        - `Configuration` → `Scripting Backend`: select `IL2CPP` (not `Mono`).
+        - `Configuration` → `Target Architectures`: check `ARM64` only.
+- Make sure the iOS player has camera and location usage descriptions filled in.
+    - Under `Project Settings` → `Player` → iOS tab → `Other Settings`:
+        - Fill in `Configuration` → `Camera Usage Description`.
+        - Fill in `Configuration` → `Location Usage Description`.
+- Make sure `AR Background Renderer Feature` is enabled on the active URP renderer asset (under `Assets/Settings/` by default).
 
     <img src="https://github.com/user-attachments/assets/8727c4a9-bf00-458d-9c76-49b95fb86fe7" width="70%">
 
 
 ## Scene Setup
 
-- `MirrorVerse SDK` and `MirrorVerse SDK UI` contain various prefabs to fulfill Unity scenes with different requirement, from using default UI and visuals with almost zero configuration, to fully configurable rendering and interactions.
+- The `MirrorVerse SDK` and `MirrorVerse SDK UI` packages ship prefabs that cover a wide range of scenarios — from zero-config defaults to fully customizable rendering and interactions.
 
-- If your application directly uses DefaultUI or CLassyUI provided by `MirrorVerse SDK UI` package, you can directly drag one of the prefabs to your scene in Unity from the following package folders:
-    
+- If your app uses the default UI or ClassyUI provided by `MirrorVerse SDK UI`, drag one of these prefabs into your scene:
+
     - DefaultUI: `Packages/MirrorVerse SDK UI/Prefabs/MirrorSceneAll_DefaultUI.prefab`
     - ClassyUI: `Packages/MirrorVerse SDK UI/Prefabs/MirrorSceneAll_ClassyUI.prefab`
 
-  Each of these prefabs provides all necessary components needed to setup a simple AR environment in your Unity scene.
-    - Core components: `MirrorVerseImpl`, `ArFoundationAdapter`，`ArFoundationCamera`
-    - Customizable visuzalization component: `MirrorSceneRenderer`
+  Each prefab provides everything needed to bootstrap a simple AR scene:
+    - Core components: `MirrorSceneImpl`, `ArFoundationAdapter`, `ArFoundationCamera`
+    - Customizable visualization component: `MirrorSceneRenderer`
     - Customizable UI component: `MirrorSceneDefaultUI` or `MirrorSceneClassyUI`
 
-- Setup the API key. In your Unity project, right click to open `Create` -> `MirrorVerse` -> `App Auth Options` to create an empty app auth assets, and fill your API key and secret there. Drag the `appAuthOptions.asset` file to the `MirrorSceneImpl` game object's `App Auth Options` property.
-- Some existing Unity game objects need to be configured
-    - EventSystem: If not yet, add `EventSystem` to your Unity scene:
+- Configure the API key. In the Unity Project view, right-click and choose `Create` → `MirrorVerse` → `App Auth Options` to create an empty App Auth Options asset. Fill in your API key and secret, then drag the asset onto the `MirrorScene` GameObject's `App Auth Options` property in the inspector.
+- A few existing scene GameObjects may need adjustment:
+    - **EventSystem**: add an `EventSystem` to the scene if there isn't one already.
 
     <img src="https://github.com/user-attachments/assets/d23db633-5021-419a-ab5c-88b755a386a3" width="70%">
 
-    - Camera: The core component prefab contains an AR camera. Remove or deactive original normal camera if there are any.
-    - Light: Adjust the `Directional Light` in the Unity scene to get the best AR effect on real device.
+    - **Camera**: the prefab includes an AR camera. Remove or disable the existing main camera.
+    - **Light**: tune the `Directional Light` in the scene for the best AR effect on a real device.
 
-- After the setup, the Unity project looks like this:
+- After setup, the scene looks like this:
 
   <img src="https://github.com/user-attachments/assets/08c01eb6-d976-48ec-8bfb-209b400fac85" width="70%">
 
-- If your application chooses to use ClassyUI interaction components, there are two URP renderer features needs to be enabled in the project, as following picture shows:
+- If you're using the ClassyUI interaction components, two URP renderer features need to be enabled on the active renderer asset:
     - `Blur Background Renderer Feature`
     - `Scan Line Renderer Feature`
 
@@ -106,9 +106,9 @@
 
 ## Scripting
 
-After the setup in Unity scene, now we can use scripts to trigger SDK to create and use MirrorScene system. Please read [`IMirrorScene`](../Project/Assets/MirrorVerse/Scripts/MirrorScene/IMirrorScene.cs) interface and related events and data structures.
+With the scene set up, scripts can drive the SDK to create and use a MirrorScene system. Read [`IMirrorScene`](../Project/Assets/MirrorVerse/Scripts/MirrorScene/IMirrorScene.cs) and its associated events and data structures for the full API surface.
 
-If using the ``MirrorSceneAll_DefaultUI.prefab` components provided from `MirrorVerse SDK UI` package, there is simpler way to just use the UI component, because all glue codes are implemented already. Try the following codes and add this MonoBehaviour to an empty game object in the Unity scene:
+If you're using the `MirrorSceneAll_DefaultUI.prefab` from the `MirrorVerse SDK UI` package, there's a simpler entry point — the prefab already wires up all the glue code. Try the following MonoBehaviour on an empty GameObject in your scene:
 
 ```C#
 using UnityEngine;
@@ -122,55 +122,56 @@ public class MyExampleGame : MonoBehaviour
         if (MirrorScene.IsAvailable())
         {
             DefaultUI.Instance.onMenuFinish += OnMenuFinished;
-            // Called at start to trigger the MirrorScene UI Menu.
+            // Triggers the MirrorScene UI menu at start.
             DefaultUI.Instance.Restart();
         }
     }
 
     private void OnMenuFinished()
     {
-        // Called scene is ready and localized.
-
+        // Called once the scene is ready and localized.
         // Now start the game logic.
-        // Access scene infomation via IMirrorScene interface.
+        // Access scene information via the IMirrorScene interface.
     }
 }
 ```
-If using the `MirrorSceneAll_ClassyUI.prefab` instead, then simply replace `DefaultUI` to `ClassyUI` in the codes above.
 
-Then build Android or iOS package and install on your phone to run a simple AR scene powered by `MirrorScene`.
+If you're using `MirrorSceneAll_ClassyUI.prefab` instead, replace `DefaultUI` with `ClassyUI` in the code above.
 
-Please checkout [MirrorSceneExamples](https://github.com/deepmirrordev/MirrorSceneExamples) repo for other sample applications and demos uses DefaultUI or ClassyUI.
+Then build an Android or iOS package, install on your phone, and you'll have a simple AR scene powered by `MirrorScene`.
+
+Check out the [MirrorSceneExamples](https://github.com/deepmirrordev/MirrorSceneExamples) repo for additional sample applications and demos using DefaultUI or ClassyUI.
 
 
 ## Advanced Customization
 
 ### Customize Visualization
 
-There are several options or configurations that are configurable, like `StaticMeshRendererOptions`, `PointCloudRendererOptions` etc. If you want to override the options, you can:
-- Use right click context menu `Create` -> `MirrorVerse` to create an empty options instance asset, and fill in values yourself.
-- Then drag the new asset to the cooresponding property of the `MirrorSceneRenderer` game object.
+Several renderer options are exposed for customization, e.g. `StaticMeshRendererOptions`, `PointCloudRendererOptions`. To override defaults:
+
+- Right-click in the Project view and choose `Create` → `MirrorVerse` to create an empty options asset, then fill in your values.
+- Drag the new asset onto the corresponding property of the `MirrorSceneRenderer` GameObject.
 
   <img src="https://github.com/user-attachments/assets/3fe44117-3b6a-47d5-8837-f672d387e169" width="70%">
 
-- If you want further customization the rendering, you can also override the renderer classes in `/Renderers` folder in `MirrorVerse SDK UI` package. Just implement your own visualization and hook them up to `MirrorSceneRenderer` game object.
-- Or implement entire visualization logic by inheriting `SceneRenderer` interface and replace default rendering components in the prefab.
+- For deeper customization, override the renderer classes in the `Renderers/` folder of the `MirrorVerse SDK UI` package — implement your own visualization and hook it up to the `MirrorSceneRenderer` GameObject.
+- Or replace the entire visualization stack by inheriting from `SceneRenderer` and swapping the default renderer components in the prefab.
 
 ### Customize UI Styles
 
-`MirrorVerse SDK UI` package provides two sets of interaction flows: `MirrorSceneDefaultUI` and `MirrorSceneClassyUI`, which are used in sample apps come with the SDK. You can modify or replace any of the parameters or assets in the components to make scan, join or AR related operations with your customimized styles.
+`MirrorVerse SDK UI` ships two reference interaction flows: `MirrorSceneDefaultUI` and `MirrorSceneClassyUI`. Both are used in the sample apps that come with the SDK. Modify any of the parameters or assets in the components to fit scan, join, or other AR-related flows to your app's style.
 
 ### Customize UI Flows
 
-You can also write your own flows of interactions. After `MirrorScene` initialized, the system will transition its states in a graph during user's operations. 
+You can also write your own interaction flow from scratch. Once `MirrorScene` is initialized, it transitions through the following state graph during user operations:
 
 <img src="https://github.com/user-attachments/assets/9a4a7e7e-512c-45b6-895a-e180d9346489" width="100%">
 
-You can use `IMirrorScene` interface to access information from the system, or operate the system, e.g. start streaming or exit localiztion.  You can also can add UI between events, calls and waitings during the MirrorScene operation flows. See the diagrams above, the left diagram illustrates the state transitions for a host device, and the right diagram illustrates the state transition graph for a guest.
+Use the `IMirrorScene` interface to read system state, drive the system, e.g. start streaming or exit localization, and inject your own UI between events, calls, and waiting periods. The left diagram shows state transitions for a host device; the right shows the transitions for a guest joining a host's scene.
 
-Thu, in this senario the fully customized flow does not use the SDK provided UI components, but only use the core SDK package.
+In this fully-customized flow you don't need the UI components — only the core SDK package.
 
-Below is a simplest code reference that only uses `IMirrorVerse` interface to hook up the whole flow, including multiple users scenario.
+Below is the minimal code reference that hooks the whole flow up using only `IMirrorScene`, including the multi-user case:
 
 ```C#
 using UnityEngine;
@@ -182,29 +183,28 @@ public class MyExampleGame : MonoBehaviour
     {
         if (MirrorScene.IsAvailable())
         {
-            // Register an event handler to handle scene standby event.
+            // Register a handler for the scene-standby event.
             MirrorScene.Get().onSceneStandby += OnSceneStandby;
 
-            // Register an event handler to handle scene ready event.
+            // Register a handler for the scene-ready event.
             MirrorScene.Get().onSceneReady += OnSceneReady;
 
-            // There are other useful events to handle.
+            // There are other useful events to subscribe to.
         }
     }
-    
+
     public void OnStartButtonClicked()
     {
-        // Called by button clicks, creates a scene.
-        // Once the scene is created, OnSceneStandby event will be triggered.
+        // Creates a scene. Once the scene is created, OnSceneStandby fires.
         MirrorScene.Get().CreateScene();
     }
-    
+
     public void OnJoinButtonClicked()
     {
-        // Called by button clicks, joins a scene by marker detection.
+        // Joins a scene by marker detection.
         MirrorScene.Get().StartMarkerDetection((marker, markerPose, localizedPose) =>
         {
-            // Once the scene is joined and loaded, OnSceneStandby event will be triggered.
+            // Once the scene is joined and loaded, OnSceneStandby fires.
             MirrorScene.Get().JoinScene(marker.sceneId);
         });
     }
@@ -215,11 +215,11 @@ public class MyExampleGame : MonoBehaviour
         {
             case SceneStatus.Empty:
             case SceneStatus.Capturing:
-                // Created a scene or joined a scene just created, start streaming.
+                // Created a scene or joined one just created — start streaming.
                 MirrorScene.Get().StartSceneStream();
                 break;
             case SceneStatus.Completed:
-                // Joined a completed scene, start downloading the mesh.
+                // Joined a completed scene — start downloading the mesh.
                 MirrorScene.Get().DownloadSceneMesh();
                 break;
         }
@@ -227,24 +227,23 @@ public class MyExampleGame : MonoBehaviour
 
     public void OnFinishButtonClicked()
     {
-        // Called by button clickes, finishes the stream.
-        // The scene starts to process in the cloud.
+        // Finishes streaming. The scene starts processing in the cloud.
         MirrorScene.Get().FinishSceneStream();
     }
 
     private void OnSceneReady(StatusOr<SceneInfo> sceneInfo)
     {
-        // Called when a scene has processed and ready to use.
+        // Called when a scene has finished processing and is ready to use.
         if (sceneInfo.HasValue)
         {
-            // Starts localization so that the device tracking never lost.            
+            // Start localization so device tracking stays consistent.
             MirrorScene.Get().StartLocalization();
         }
     }
 
     public void OnExitButtonClicked()
     {
-        // Called by button clicks, exits the scene.
+        // Exits the scene.
         MirrorScene.Get().ExitScene();
     }
 }

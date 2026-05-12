@@ -8,14 +8,20 @@ EditorBuildSettings:
   - enabled: 0
     path: Assets/Examples/MirrorSceneExample/MirrorSceneExample_DefaultUI.unity
     guid: bc758dca4840d8b45ab27138c7f3a6db
-  - enabled: 1
+  - enabled: 0
     path: Assets/Examples/MirrorSceneExample/MirrorSceneExample_ClassyUI.unity
     guid: 5b4c199af5a82334a80d0e6e16d5896d
+  - enabled: 1
+    path: Assets/Examples/MirrorSpaceExample/MirrorSpaceExample.unity
+    guid: 05007ff84a40b6245bbe2d1907ed8175
+  - enabled: 0
+    path: Assets/Examples/ImageTrackingExample/ImageTrackingExample.unity
+    guid: 2022c8e4e2704c449b04dbf0d855576e
   m_configObjects:
     AR Foundation RemoteARFoundationRemoteLoaderSettings: {fileID: 11400000, guid: 2ec9d2b32bc49bb499383613089f3a8e, type: 2}
     AR Foundation RemoteARFoundationRemoteSessionRecordsData: {fileID: 11400000, guid: d37a7439a14ce844a8392d3fbd0b54a7, type: 2}
     UnityEditor.XR.ARCore.ARCoreSettings: {fileID: 11400000, guid: 93d7653d7168dfa4693e8511c8a79382, type: 2}
     UnityEditor.XR.AREngine.AREngineSettings: {fileID: 11400000, guid: 37ecd182d345fd040aa214317c6580c7, type: 2}
     UnityEditor.XR.ARKit.ARKitSettings: {fileID: 11400000, guid: 8d50f9acb4ccb484e91681b0197f6b9e, type: 2}
-    com.unity.xr.arfoundation.simulation_settings: {fileID: 11400000, guid: ecf596e163165e24f91c92d364b09754, type: 2}
+    com.unity.xr.arfoundation.simulation_settings: {fileID: 11400000, guid: beca81e161e7b5142b52ef8d7cec482f, type: 2}
     com.unity.xr.management.loader_settings: {fileID: 11400000, guid: fe1bebc918968e04fa13bf38e50020b8, type: 2}

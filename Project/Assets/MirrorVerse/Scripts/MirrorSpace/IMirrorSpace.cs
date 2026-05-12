@@ -52,6 +52,15 @@ namespace MirrorVerse
         // Sets the offset base value for Unity coordinates origin's real Earth location (WGS84 LLA). Developers can use call at startup to attach their AR scene on Earth.
         public void SetCoordinatesOffsetBase(Wgs3d offsetBase);
 
+        // Gets the offset base value for Unity coordinates origin's real Earth location (ECEF Right handed). Developers can use this offset to attach their AR scene on Earth.
+        public Ecef3d GetCoordinatesOffsetBase();
+
+        // Gets the local pose of a given real Earth location (ECEF Right handed) to coordinates offset base.
+        public Pose GetLocalPoseFromCoordinatesOffsetBase(EcefPose earthPose);
+
+        // Gets the real Earth localtion (ECEF Right handed) with local pose offset from the coordiantes offset base.
+        public EcefPose GetEarthPoseFromCoordinatesOffsetBase(Pose localPose);
+
         // ================================================================================
         //   Async operations to consume the Space localization.
         //   Operations could be triggered from any thread or coroutines asynchronously.

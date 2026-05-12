@@ -1,0 +1,14 @@
+{
+	"name": "com.deepmirror.mirrorverse.data",
+	"displayName": "MirrorVerse SDK Data",
+	"description": "Bundled data assets (MNN models, edge maps) for the MirrorVerse SDK and the editor menus that stage them into a consumer project's StreamingAssets.",
+	"version": "0.3.1",
+	"unity": "2022.3",
+	"dependencies": {},
+	"license": "Apache-2.0",
+	"author": {
+      "name": "DeepMirror Inc",
+      "email": "support@deepmirror.com",
+      "url": "https://www.deepmirror.com/mirrorscene"
+    }
+}
