@@ -3,6 +3,7 @@ using UnityEngine.UI;
 
 namespace MirrorVerse.UI.RendererFeatures
 {
+    [ExecuteInEditMode]
     public class BlurBackgroundImage : Image
     {
         private static readonly int BLUR_TEX_PROP_ID = Shader.PropertyToID("_BlurTex");
@@ -60,7 +61,13 @@ namespace MirrorVerse.UI.RendererFeatures
                 return false;
             }
 
+            // BlurredScreen is RTHandle on Unity 6 (no Unity-Object → bool overload, must
+            // compare to null) and RenderTexture on 2022.3 (preferred bool form).
+#if UNITY_6000_0_OR_NEWER
+            if (_source.BlurredScreen == null)
+#else
             if (!_source.BlurredScreen)
+#endif
             {
                 return false;
             }

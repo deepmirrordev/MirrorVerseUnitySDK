@@ -13,4 +13,8 @@ MonoBehaviour:
   m_Name: LocalizerOptions
   m_EditorClassIdentifier: 
   localizationImageInterval: 2
-  useReferenceImageLibrary: 0
+  startupEdgeMapId: 
+  globalDescriptorModel: 
+  localFeatureModel: 
+  featureMatcherModel: 
+  modelForceOverride: 0

@@ -10,8 +10,9 @@ namespace MirrorVerse.EditorTools
         public static void Pack()
         {
             string tempUPMPath = $"{Application.dataPath}/../Temp/ExportPackages";
-            Client.Pack($"{Application.dataPath}/MirrorVerse", tempUPMPath);
-            Client.Pack($"{Application.dataPath}/MirrorVerse.UI", tempUPMPath);
+            Client.Pack($"{Application.dataPath}/MirrorVerse",      tempUPMPath);
+            Client.Pack($"{Application.dataPath}/MirrorVerse.Data", tempUPMPath);
+            Client.Pack($"{Application.dataPath}/MirrorVerse.UI",   tempUPMPath);
         }
     }
 }

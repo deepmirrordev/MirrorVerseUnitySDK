@@ -1,4 +1,4 @@
-﻿using UnityEngine;
+using UnityEngine;
 
 namespace MirrorVerse.Options
 {
@@ -10,5 +10,8 @@ namespace MirrorVerse.Options
 
         // API secret
         public string appSecret;
+
+        // Cloud service endpoint label.
+        public string endpoint = "US";
     }
 }

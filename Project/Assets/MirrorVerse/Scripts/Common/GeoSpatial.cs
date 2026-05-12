@@ -30,11 +30,24 @@ namespace MirrorVerse
             }
         }
 
+        public bool IsValid()
+        {
+            // Make sure no value is NaN.
+            return !double.IsNaN(latitude) && !double.IsNaN(longitude) && !double.IsNaN(altitude);
+        }
+
         public override string ToString()
         {
-            string latitudeLabel = new string[] { "S", "", "N" }[Math.Sign(latitude) + 1];
-            string longitudeLabel = new string[] { "W", "", "E" }[Math.Sign(latitude) + 1];
-            return String.Format("({0}°{1}, {2}°{3}, {4}m)", latitude, latitudeLabel, longitude, longitudeLabel, altitude);
+            if (IsValid())
+            {
+                string latitudeLabel = new string[] { "S", "", "N" }[Math.Sign(latitude) + 1];
+                string longitudeLabel = new string[] { "W", "", "E" }[Math.Sign(latitude) + 1];
+                return string.Format("({0:F4}°{1}, {2:F4}°{3}, {4:F4}m)", latitude, latitudeLabel, longitude, longitudeLabel, altitude);
+            }
+            else
+            {
+                return "";
+            }
         }
     }
 
@@ -66,7 +79,7 @@ namespace MirrorVerse
 
         public override string ToString()
         {
-            return String.Format("({0}, {1}, {2})", x, y, z);
+            return String.Format("({0:F2}, {1:F2}, {2:F2})", x, y, z);
         }
     }
 
@@ -92,7 +105,7 @@ namespace MirrorVerse
 
         public override string ToString()
         {
-            return String.Format("({0}), ({1})", position.ToString(), rotation.ToString());
+            return String.Format("{0} - {1}", position.ToString(), rotation.eulerAngles.ToString());
         }
     }
 
@@ -118,7 +131,7 @@ namespace MirrorVerse
 
         public override string ToString()
         {
-            return String.Format("({0}), ({1})", location.ToString(), orientation.ToString());
+            return String.Format("{0} - {1}", location.ToString(), orientation.ToString());
         }
     }
 }

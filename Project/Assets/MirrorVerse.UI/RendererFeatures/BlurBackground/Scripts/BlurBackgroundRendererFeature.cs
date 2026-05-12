@@ -4,16 +4,17 @@ using UnityEngine.Rendering.Universal;
 
 namespace MirrorVerse.UI.RendererFeatures
 {
+    // Outer ScriptableRendererFeature that resolves a BlurBackgroundSource for the
+    // active camera and enqueues the BlurBackgroundRenderPass. The pass class itself
+    // (in BlurBackgroundRenderPass.cs) has #if-guarded URP 17 / URP 14 implementations
+    // sharing the same Setup(source, renderer) contract; this outer feature stays
+    // platform-agnostic except for the URP 17-only configuration in Create().
     public class BlurBackgroundRendererFeature : ScriptableRendererFeature
     {
         private BlurBackgroundRenderPass _renderPass;
 
-        private readonly Dictionary<Camera, BlurBackgroundSource> _sourceCache = new Dictionary<Camera, BlurBackgroundSource>();
-
-        public void RegisterSource(BlurBackgroundSource source)
-        {
-            _sourceCache[source.GetComponent<Camera>()] = source;
-        }
+        private readonly Dictionary<Camera, BlurBackgroundSource> _sourceCache =
+            new Dictionary<Camera, BlurBackgroundSource>();
 
         public override void Create()
         {
@@ -21,39 +22,26 @@ namespace MirrorVerse.UI.RendererFeatures
             _sourceCache.Clear();
         }
 
-        void Setup(ScriptableRenderer renderer, in RenderingData renderingData)
-        {
-            var cameraData = renderingData.cameraData;
-            var source = GetSource(cameraData.camera);
-            if (source == null)
-            {
-                return;
-            }
-            _renderPass.Setup(source, renderer);
-        }
-
-#if UNITY_2022_1_OR_NEWER
-        public override void SetupRenderPasses(ScriptableRenderer renderer, in RenderingData renderingData)
-        {
-            Setup(renderer, renderingData);
-        }
-#endif
-
         public override void AddRenderPasses(ScriptableRenderer renderer, ref RenderingData renderingData)
         {
-#if !UNITY_2022_1_OR_NEWER
-            Setup(renderer, renderingData);
-#endif
-
-            var cameraData = renderingData.cameraData;
             var camera = renderingData.cameraData.camera;
             var source = GetSource(camera);
             if (source == null || !source.enabled || !Application.isPlaying)
             {
                 return;
             }
-            var camPixelSize = cameraData.camera.pixelRect.size;
             source.PrepareBlurredScreen();
+            _renderPass.Setup(source, renderer);
+#if UNITY_6000_0_OR_NEWER
+            // RenderGraph-only configuration. Set inside AddRenderPasses (not Create)
+            // so URP only allocates the intermediate texture when the feature is active
+            // for this camera. Putting these in Create() makes URP's render-pass setup
+            // fire even for m_Active = 0 / source-less features and emit "EndRenderPass:
+            // Not inside a Renderpass" at startup. We don't sample depth, so request
+            // Color only.
+            _renderPass.ConfigureInput(ScriptableRenderPassInput.Color);
+            _renderPass.requiresIntermediateTexture = true;
+#endif
             renderer.EnqueuePass(_renderPass);
         }
 
