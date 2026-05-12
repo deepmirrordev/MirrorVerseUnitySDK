@@ -24,10 +24,6 @@ namespace MirrorVerse
 
         // Core system requests to render point clouds.
         public abstract void RenderPointCloudsBatch(IDictionary<string, Vector3[]> pointsBatch);
-
-        // Core system requests to render point clouds.
-        public abstract void RenderTrajectory(string clientId, Pose[] trajectory);
-
         // Core system requests to render immediate mesh.
         public abstract void RenderImmediateMesh(MeshRenderable meshRenderable);
 
@@ -39,15 +35,6 @@ namespace MirrorVerse
 
         // Core system requests to render navigation mesh.
         public abstract void RenderNavigationMesh(MeshRenderable meshRenderable);
-
-        // Core system requests to render air wall.
-        public abstract void RenderAirWall();
-
-        // Core system requests to render immediate detected objects.
-        public abstract void RenderImmediateDetectedObjects(ObjectDetectionResult objectDetection);
-
-        // Core system requests to render static detected objects.
-        public abstract void RenderStaticDetectedObjects(ObjectDetectionResult objectDetection);
 
         // Core system requests to render raycast cursor.
         public abstract RaycastHitResult? RenderRaycastCursor(Matrix4x4 localToSceneTransform);
@@ -90,5 +77,20 @@ namespace MirrorVerse
 
         // Returns stream renderable object for custom events.
         public abstract SceneStreamRenderable GetStreamRenderable();
+
+
+        // Experiments
+
+        // Core system requests to render point clouds.
+        public abstract void RenderTrajectory(string clientId, Pose[] trajectory);
+
+        // Core system requests to render immediate detected objects.
+        public abstract void RenderImmediateDetectedObjects(ObjectDetectionResult objectDetection);
+
+        // Core system requests to render static detected objects.
+        public abstract void RenderStaticDetectedObjects(ObjectDetectionResult objectDetection);
+
+        // Core system requests to render air wall.
+        public abstract void RenderAirWall();
     }
 }

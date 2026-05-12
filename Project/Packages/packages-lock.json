@@ -1,16 +1,26 @@
 {
   "dependencies": {
+    "com.unity.ai.navigation": {
+      "version": "1.1.6",
+      "depth": 0,
+      "source": "registry",
+      "dependencies": {
+        "com.unity.modules.ai": "1.0.0"
+      },
+      "url": "https://packages.unity.com"
+    },
     "com.unity.burst": {
-      "version": "1.8.4",
+      "version": "1.8.21",
       "depth": 1,
       "source": "registry",
       "dependencies": {
-        "com.unity.mathematics": "1.2.1"
+        "com.unity.mathematics": "1.2.1",
+        "com.unity.modules.jsonserialize": "1.0.0"
       },
       "url": "https://packages.unity.com"
     },
     "com.unity.collab-proxy": {
-      "version": "2.0.7",
+      "version": "2.7.1",
       "depth": 0,
       "source": "registry",
       "dependencies": {},
@@ -47,7 +57,7 @@
       "url": "https://packages.unity.com"
     },
     "com.unity.inputsystem": {
-      "version": "1.5.1",
+      "version": "1.14.0",
       "depth": 1,
       "source": "registry",
       "dependencies": {
@@ -63,40 +73,50 @@
       "url": "https://packages.unity.com"
     },
     "com.unity.render-pipelines.core": {
-      "version": "12.1.11",
+      "version": "14.0.12",
       "depth": 1,
       "source": "builtin",
       "dependencies": {
         "com.unity.ugui": "1.0.0",
         "com.unity.modules.physics": "1.0.0",
+        "com.unity.modules.terrain": "1.0.0",
         "com.unity.modules.jsonserialize": "1.0.0"
       }
     },
     "com.unity.render-pipelines.universal": {
-      "version": "12.1.11",
+      "version": "14.0.12",
       "depth": 0,
       "source": "builtin",
       "dependencies": {
         "com.unity.mathematics": "1.2.1",
-        "com.unity.burst": "1.8.4",
-        "com.unity.render-pipelines.core": "12.1.11",
-        "com.unity.shadergraph": "12.1.11"
+        "com.unity.burst": "1.8.9",
+        "com.unity.render-pipelines.core": "14.0.12",
+        "com.unity.shadergraph": "14.0.12",
+        "com.unity.render-pipelines.universal-config": "14.0.9"
+      }
+    },
+    "com.unity.render-pipelines.universal-config": {
+      "version": "14.0.10",
+      "depth": 1,
+      "source": "builtin",
+      "dependencies": {
+        "com.unity.render-pipelines.core": "14.0.10"
       }
     },
     "com.unity.searcher": {
-      "version": "4.9.1",
+      "version": "4.9.2",
       "depth": 2,
       "source": "registry",
       "dependencies": {},
       "url": "https://packages.unity.com"
     },
     "com.unity.shadergraph": {
-      "version": "12.1.11",
+      "version": "14.0.12",
       "depth": 1,
       "source": "builtin",
       "dependencies": {
-        "com.unity.render-pipelines.core": "12.1.11",
-        "com.unity.searcher": "4.9.1"
+        "com.unity.render-pipelines.core": "14.0.12",
+        "com.unity.searcher": "4.9.2"
       }
     },
     "com.unity.test-framework": {
@@ -111,7 +131,7 @@
       "url": "https://packages.unity.com"
     },
     "com.unity.timeline": {
-      "version": "1.6.5",
+      "version": "1.7.7",
       "depth": 0,
       "source": "registry",
       "dependencies": {
@@ -132,13 +152,13 @@
       }
     },
     "com.unity.xr.arcore": {
-      "version": "5.1.5",
+      "version": "5.2.0",
       "depth": 0,
       "source": "registry",
       "dependencies": {
         "com.unity.xr.core-utils": "2.1.0",
         "com.unity.xr.management": "4.0.1",
-        "com.unity.xr.arfoundation": "5.1.5",
+        "com.unity.xr.arfoundation": "5.2.0",
         "com.unity.modules.androidjni": "1.0.0",
         "com.unity.modules.unitywebrequest": "1.0.0"
       },
@@ -157,7 +177,7 @@
       }
     },
     "com.unity.xr.arfoundation": {
-      "version": "5.1.5",
+      "version": "5.2.0",
       "depth": 0,
       "source": "registry",
       "dependencies": {
@@ -175,19 +195,19 @@
       "url": "https://packages.unity.com"
     },
     "com.unity.xr.arkit": {
-      "version": "5.1.5",
+      "version": "5.2.0",
       "depth": 0,
       "source": "registry",
       "dependencies": {
         "com.unity.xr.core-utils": "2.1.0",
         "com.unity.xr.management": "4.0.1",
-        "com.unity.xr.arfoundation": "5.1.5",
+        "com.unity.xr.arfoundation": "5.2.0",
         "com.unity.editorcoroutines": "1.0.0"
       },
       "url": "https://packages.unity.com"
     },
     "com.unity.xr.core-utils": {
-      "version": "2.2.1",
+      "version": "2.5.2",
       "depth": 1,
       "source": "registry",
       "dependencies": {
@@ -196,7 +216,7 @@
       "url": "https://packages.unity.com"
     },
     "com.unity.xr.legacyinputhelpers": {
-      "version": "2.1.10",
+      "version": "2.1.12",
       "depth": 2,
       "source": "registry",
       "dependencies": {
@@ -206,7 +226,7 @@
       "url": "https://packages.unity.com"
     },
     "com.unity.xr.management": {
-      "version": "4.3.3",
+      "version": "4.4.0",
       "depth": 1,
       "source": "registry",
       "dependencies": {
@@ -216,6 +236,14 @@
         "com.unity.xr.legacyinputhelpers": "2.1.7"
       },
       "url": "https://packages.unity.com"
+    },
+    "xyz.candycoded.hapticfeedback": {
+      "version": "file:xyz.candycoded.hapticfeedback-1.0.3.tgz",
+      "depth": 0,
+      "source": "local-tarball",
+      "dependencies": {
+        "com.unity.modules.androidjni": "1.0.0"
+      }
     },
     "com.unity.modules.ai": {
       "version": "1.0.0",
@@ -348,17 +376,6 @@
     "com.unity.modules.uielements": {
       "version": "1.0.0",
       "depth": 0,
-      "source": "builtin",
-      "dependencies": {
-        "com.unity.modules.ui": "1.0.0",
-        "com.unity.modules.imgui": "1.0.0",
-        "com.unity.modules.jsonserialize": "1.0.0",
-        "com.unity.modules.uielementsnative": "1.0.0"
-      }
-    },
-    "com.unity.modules.uielementsnative": {
-      "version": "1.0.0",
-      "depth": 1,
       "source": "builtin",
       "dependencies": {
         "com.unity.modules.ui": "1.0.0",

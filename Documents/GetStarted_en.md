@@ -41,7 +41,7 @@
 
 - After all installed, it looks as follows:
 
-    <img src="https://github.com/user-attachments/assets/157ccffe-099f-4ab3-adb9-a60097b44e9a" width="70%">
+    <img src="https://github.com/user-attachments/assets/157ccffe-099f-4ab3-adb9-a60097b44e9a" width="65%">
 
 - If a newer version of MirrorVerse Unity SDK has released, please visit [SDK Releases List](https://github.com/deepmirrordev/MirrorVerseUnitySDK/releases) page to download the latest version of .tgz files.  And re-install the newer version from `Package Manager` -> `Add Package from tarball...` menu in the Unity project.
 

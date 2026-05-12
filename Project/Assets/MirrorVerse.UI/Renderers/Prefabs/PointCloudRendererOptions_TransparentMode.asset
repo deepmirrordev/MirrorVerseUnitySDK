@@ -12,16 +12,26 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 16bd923a6556b3942af83931e5f2c252, type: 3}
   m_Name: PointCloudRendererOptions_TransparentMode
   m_EditorClassIdentifier: 
-  transparentMode: 1
+  visible: 0
   drawBounds: 20
   diskSides: 16
   pointSize: 0.012
-  fadeInDuration: 1
-  fadeOutDuration: 10
+  fadeInDuration: 2
+  fadeOutDuration: 2
   displayDistance: 5
-  pointPerSec: 3000
-  peekPointPerSec: 10000
-  inflationScale: 1
+  pointPerSec: 1000
+  peekPointPerSec: 5000
+  inflationScale: 1.2
   opacity: 0
   pointCloudMaterial: {fileID: 2100000, guid: 51e33ef256a094440a4ce93ee74c369f, type: 2}
+  transparentMode: 1
   cameraBackgroundMaskPrefab: {fileID: 8443773959716616163, guid: 74c2f79cb33b68c43904633107948383, type: 3}
+  primaryColor: {r: 0.2627451, g: 0.65882355, b: 0.34509805, a: 1}
+  paletteColors:
+  - {r: 0.78039217, g: 0, b: 0.22352941, a: 1}
+  - {r: 1, g: 0.8039216, b: 0.21568628, a: 1}
+  - {r: 1, g: 0.31764707, b: 0.07058824, a: 1}
+  - {r: 0.8901961, g: 0.09803922, b: 0.39607844, a: 1}
+  - {r: 0.70980394, g: 0.6, b: 0.8784314, a: 1}
+  - {r: 0.20392157, g: 0.5254902, b: 0.8509804, a: 1}
+  - {r: 0.8156863, g: 0.8156863, b: 0.8156863, a: 1}

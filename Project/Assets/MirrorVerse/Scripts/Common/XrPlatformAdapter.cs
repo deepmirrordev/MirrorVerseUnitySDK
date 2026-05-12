@@ -1,3 +1,5 @@
+using System;
+using System.Collections.Generic;
 using UnityEngine;
 
 namespace MirrorVerse
@@ -11,6 +13,8 @@ namespace MirrorVerse
         public abstract TrackingStatus GetTrackingStatus();
 
         public abstract GameObject GetCameraObject();
+
+        public abstract bool SetDevicePose(Pose devicePose, Pose? localCameraPose = null);
 
         public abstract float? GetAmbientBrightness();
 
@@ -35,5 +39,15 @@ namespace MirrorVerse
         public abstract bool GetHandControllerRelativePoses(out Pose leftHandControllerPose, out Pose rightHandControllerPose);
 
         public abstract bool GetHandControllerObjects(out GameObject leftHandController, out GameObject rightHandController);
+
+        public abstract void SetTrackedImageEnabled(bool enabled);
+
+        public abstract bool IsTrackedImageDetected(string requestImageName);
+
+        public abstract bool GetTrackedImageResult(string requestOriginImageName, out TrackedImageResult? originImageResult);
+
+        public abstract bool GetAllTrackedImageResults(string requestOriginImageName, out TrackedImageResult[] trackedImageResults);
+
+        public abstract bool UpdateTrackedImageLibrary(Dictionary<string, TrackedImageData> trackdeImageData, Action callback);
     }
 }

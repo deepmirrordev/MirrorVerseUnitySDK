@@ -736,6 +736,7 @@ namespace MirrorVerse.UI.MirrorSceneClassyUI
 
         public void Cancel()
         {
+            ExitScene(); // Exit scene to call cancel. 
             SwitchMenu(SystemMenuType.NoMenu);
             HideMenu();
             onMenuCancel();
