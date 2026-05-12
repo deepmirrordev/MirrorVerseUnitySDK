@@ -1,4 +1,5 @@
-﻿using Unity.Collections;
+﻿using System;
+using Unity.Collections;
 namespace MirrorVerse
 {
     public enum ImageFormat
@@ -8,7 +9,9 @@ namespace MirrorVerse
         // Gray scale images from some supported sensors.
         GrayScale = 1,
         // Encoded format like Jpeg or PNG.
-        Encoded = 2
+        Encoded = 2,
+        // RGBA format images from Quest 3 etc.
+        RGBAFlipped = 3
     };
 
     // Represents an image buffer.
@@ -16,17 +19,21 @@ namespace MirrorVerse
     {
         private ImageFormat _imageFormat;
         private NativeArray<byte>? _nativeArrayData;
+        private IntPtr? _nativeArrayPtr;
         private byte[] _data;
         private int _width;
         private int _height;
+        // Size of the native array in bytes.
+        private int _nativePtrArraySize;
 
         public byte[] Data
         {
-            get  {
+            get
+            {
                 return _data;
             }
         }
-        
+
         public bool HasNativeArrayData
         {
             get
@@ -40,6 +47,26 @@ namespace MirrorVerse
             get
             {
                 return _nativeArrayData.Value;
+            }
+        }
+
+        public IntPtr NativeArrayPtr
+        {
+            get
+            {
+                return _nativeArrayPtr ?? IntPtr.Zero;
+            }
+            set
+            {
+                _nativeArrayPtr = value;
+            }
+        }
+        
+        public int NativePtrArraySize
+        {
+            get
+            {
+                return _nativePtrArraySize;
             }
         }
 
@@ -91,7 +118,7 @@ namespace MirrorVerse
         {
             ImageData image = new ImageData();
             image._data = data;
-            image._imageFormat = imageFormat;  // Yuv420 or GrayScale.
+            image._imageFormat = imageFormat; // Yuv420 or GrayScale.
             image._width = width;
             image._height = height;
             return image;
@@ -104,6 +131,19 @@ namespace MirrorVerse
             image._imageFormat = imageFormat; // Yuv420 or GrayScale.
             image._width = width;
             image._height = height;
+            return image;
+        }
+
+        public static ImageData NewImageFromNativePtr(IntPtr nativeArrayPtr, ImageFormat imageFormat, int size, int width, int height)
+        {
+            ImageData image = new ImageData
+            {
+                _nativeArrayPtr = nativeArrayPtr,
+                _imageFormat = imageFormat,
+                _nativePtrArraySize = size,
+                _width = width,
+                _height = height
+            };
             return image;
         }
     }

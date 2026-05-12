@@ -13,13 +13,30 @@ namespace MirrorVerse.UI.RendererFeatures
             _renderPass = new ScanLineRenderPass();
         }
 
-        public override void AddRenderPasses(ScriptableRenderer renderer, ref RenderingData renderingData)
+        void ConfigPass(ScriptableRenderer renderer, in RenderingData renderingData)
         {
             if (_options == null)
             {
                 return;
             }
             _renderPass.Setup(_options);
+        }
+
+#if UNITY_2022_1_OR_NEWER
+        public override void SetupRenderPasses(ScriptableRenderer renderer, in RenderingData renderingData)
+        {
+            ConfigPass(renderer, renderingData);
+        }
+#endif
+
+        public override void AddRenderPasses(ScriptableRenderer renderer, ref RenderingData renderingData)
+        {
+#if !UNITY_2022_1_OR_NEWER
+            ConfigPass(renderer, renderingData);
+#endif
+            var cameraData = renderingData.cameraData;
+            var camera = renderingData.cameraData.camera;
+            var camPixelSize = cameraData.camera.pixelRect.size;
             renderer.EnqueuePass(_renderPass);
         }
 

@@ -12,4 +12,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d98f4013fb41c7b42a1ab62ea5c4d6d7, type: 3}
   m_Name: LocalizerOptions
   m_EditorClassIdentifier: 
-  localizationImageInterval: 0.2
+  localizationImageInterval: 2
+  useReferenceImageLibrary: 0

@@ -72,12 +72,12 @@ namespace MirrorVerse
 
     // A pose that with ECEF coordinate system.
     // Unlike float-based UnityEngine.Pose, transition vector is double-based.
+    // Orentation of this pose is under ENU frame of the ECEF location.
     [Serializable]
     public struct EcefPose
     {
-        public Ecef3d position;
-
-        public Quaternion rotation;
+        public Ecef3d position;      // ECEF in meters
+        public Quaternion rotation;  // Converted from ENU
 
         public static EcefPose zero {
             get
@@ -101,10 +101,8 @@ namespace MirrorVerse
     [Serializable]
     public struct GeodeticPose
     {
-        public Wgs3d location;        // ENU lat/lng/alt value
-        public Vector3 orientation;   // ENU   yaw/pitch/roll
-
-        // TODO: yaw/pitch/roll is conventional and maybe not suitabe. consider use quaternion instead.
+        public Wgs3d location;        // lng/lat/alt value  in degree/degree/m
+        public Vector3 orientation;   // E(ast)=X, N(orth)=Z  U(p)=Y in degree
 
         public static GeodeticPose zero
         {

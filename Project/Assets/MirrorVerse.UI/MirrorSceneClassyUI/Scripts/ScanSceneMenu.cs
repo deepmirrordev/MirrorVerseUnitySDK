@@ -402,6 +402,7 @@ namespace MirrorVerse.UI.MirrorSceneClassyUI
                     }
                     else
                     {
+                        // Currently even no scanning, it requires exit.
                         ClassyUI.Instance.Cancel();
                     }
                     ClassyUI.Instance.TriggerBackClicked();

@@ -6,21 +6,38 @@ namespace MirrorVerse.UI.Renderers
     public class SceneRendererImpl : SceneRenderer
     {
         public XrPlatformAdapter xrPlatformAdapter;
-        public GameObject immediateRoot;
-        public PointCloudRenderer pointCloudRenderer;
-        public TrajectoryRenderer trajectoryRenderer;
-        public ImmediateMeshRenderer immediateMeshRenderer;
-        public ImmediateMeshRenderer minimapMeshRenderer;
-        public DetectedBoxRenderer immediateBoxRenderer;
-        public StaticMeshRenderer staticMeshRenderer;
-        public NavMeshRenderer navMeshRenderer;
-        public DetectedBoxRenderer staticBoxRenderer;
-        public AirWallRenderer airWallRenderer;
-        public RaycastRenderer raycastRenderer;
-        public ScanLineRenderer scanLineRenderer;
 
+        [HideInInspector]
         public MarkerRenderer markerRenderer;
+        [HideInInspector]
         public MinimapRenderer minimapRenderer;
+
+        [HideInInspector]
+        public GameObject immediateRoot;
+        [HideInInspector]
+        public PointCloudRenderer pointCloudRenderer;
+        [HideInInspector]
+        public ImmediateMeshRenderer immediateMeshRenderer;
+        [HideInInspector]
+        public ImmediateMeshRenderer minimapMeshRenderer;
+        [HideInInspector]
+        public ScanLineRenderer scanLineRenderer;
+        [HideInInspector]
+        public RaycastRenderer raycastRenderer;
+        [HideInInspector]
+        public StaticMeshRenderer staticMeshRenderer;
+        [HideInInspector]
+        public NavMeshRenderer navMeshRenderer;
+
+        // Experiments
+        [HideInInspector]
+        public TrajectoryRenderer trajectoryRenderer;
+        [HideInInspector]
+        public DetectedBoxRenderer immediateBoxRenderer;
+        [HideInInspector]
+        public DetectedBoxRenderer staticBoxRenderer;
+        [HideInInspector]
+        public AirWallRenderer airWallRenderer;
 
         private GameObject _cameraObject;
         private string _currentClientId;
@@ -36,23 +53,24 @@ namespace MirrorVerse.UI.Renderers
             // Then all children rednerers will follow the root transform.
 
             // Here constructs the sub renderers with given renderer options customized by applications
+            // Note that names of the game object are fixed. Do not change them in the scene.
             /* - CoreRenderer (Component)
-                  - ImmediateRoot  // This root's transform in Unity scene is controlled by server during streaming.
-                      - PointClouds
-                      - Trajectories
-                      - ImmediateBox
-                      - ImmediateMesh
-                      - MinimapImmediateMesh (different layer mask)
-                      - ...
-                  - StaticMesh     // Reset of the object's transforms should be always set to identity.
-                  - NavMesh
-                  - StaticBox
-                  - AirWall
-                  - RaycastCursor
-                  - ScanLine
                   - CanvasRoot
                       - MarkerCanvas
                       - MinimapCanvas
+                  - ImmediateRoot  // This root's transform in Unity scene is controlled by server during streaming.
+                      - PointClouds
+                      - ImmediateMesh
+                      - MinimapMesh (different layer mask)
+                      - Trajectories  (experiment)
+                      - ImmediateBox  (experiment)
+                      - ...
+                  - RaycastCursor  // Rest of the object's transforms should be always set to identity.
+                  - ScanLine
+                  - StaticMesh     
+                  - NavMesh
+                  - StaticBox (experiment)
+                  - AirWall   (experiment)
             */
 
             // The client ID is generated when a new capture is started.
@@ -73,20 +91,36 @@ namespace MirrorVerse.UI.Renderers
                 _cameraObject = xrPlatformAdapter.GetCameraObject();
             }
 
-            if (raycastRenderer != null)
-            {
-                raycastRenderer.SetXrPlatformAdapter(xrPlatformAdapter);
-            }
+            // Automatically finds all necessary child components based.
 
-            if (pointCloudRenderer != null && _cameraObject != null)
-            {
-                pointCloudRenderer.SetCameraObject(_cameraObject);
-            }
+            immediateRoot = transform.Find("ImmediateRoot")?.gameObject;
+            
+            pointCloudRenderer = transform.Find("ImmediateRoot/PointClouds")?.GetComponent<PointCloudRenderer>();
+            pointCloudRenderer?.SetCameraObject(_cameraObject);
 
-            if (minimapRenderer != null && _cameraObject != null)
-            {
-                minimapRenderer.SetArCameraObject(_cameraObject);
-            }
+            immediateMeshRenderer = transform.Find("ImmediateRoot/ImmediateMesh")?.GetComponent<ImmediateMeshRenderer>();
+            
+            minimapMeshRenderer = transform.Find("ImmediateRoot/MinimapMesh")?.GetComponent<ImmediateMeshRenderer>();
+            
+            staticMeshRenderer = transform.Find("StaticMesh")?.GetComponent<StaticMeshRenderer>();
+            
+            navMeshRenderer = transform.Find("NavMesh")?.GetComponent<NavMeshRenderer>();
+            
+            raycastRenderer = transform.Find("RaycastCursor")?.GetComponent<RaycastRenderer>();
+            raycastRenderer?.SetXrPlatformAdapter(xrPlatformAdapter);
+
+            scanLineRenderer = transform.Find("ScanLine")?.GetComponent<ScanLineRenderer>();
+            
+            markerRenderer = transform.Find("CanvasRoot/MarkerCanvas")?.GetComponent<MarkerRenderer>();
+            
+            minimapRenderer = transform.Find("CanvasRoot/MinimapCanvas")?.GetComponent<MinimapRenderer>();
+            minimapRenderer?.SetArCameraObject(_cameraObject);
+
+            // Experiments
+            trajectoryRenderer = transform.Find("ImmediateRoot/Trajectories")?.GetComponent<TrajectoryRenderer>();
+            immediateBoxRenderer = transform.Find("ImmediateRoot/ImmediateBox")?.GetComponent<DetectedBoxRenderer>();
+            staticBoxRenderer = transform.Find("StaticBox")?.GetComponent<DetectedBoxRenderer>();
+            airWallRenderer = transform.Find("AirWall")?.GetComponent<AirWallRenderer>();
         }
 
         public override void SetCapturing(bool capturing, string currentClientId = null, string hostClientId = null)
@@ -183,19 +217,6 @@ namespace MirrorVerse.UI.Renderers
             }
         }
 
-        public override void RenderTrajectory(string clientId, Pose[] trajectory)
-        {
-            if (trajectoryRenderer != null)
-            {
-                if (trajectory != null && trajectory.Length > 0)
-                {
-                    trajectoryRenderer.RenderTrajectory(clientId, trajectory, _currentClientId == clientId);
-                }
-
-                GetOrCreateClientStream(clientId).trajectory = trajectory;
-            }
-        }
-
         public override void RenderImmediateMesh(MeshRenderable meshRenderable)
         {
             if (immediateMeshRenderer != null)
@@ -226,6 +247,18 @@ namespace MirrorVerse.UI.Renderers
             if (navMeshRenderer != null)
             {
                 navMeshRenderer.RenderMeshObject(meshRenderable);
+            }
+        }
+
+        public override void RenderTrajectory(string clientId, Pose[] trajectory)
+        {
+            if (trajectoryRenderer != null)
+            {
+                if (trajectory != null && trajectory.Length > 0)
+                {
+                    trajectoryRenderer.RenderTrajectory(clientId, trajectory, _currentClientId == clientId);
+                }
+                GetOrCreateClientStream(clientId).trajectory = trajectory;
             }
         }
 
@@ -291,10 +324,6 @@ namespace MirrorVerse.UI.Renderers
             {
                 pointCloudRenderer.ClearBuffers();
             }
-            if (trajectoryRenderer != null)
-            {
-                trajectoryRenderer.ClearAll();
-            }
             if (immediateMeshRenderer != null)
             {
                 immediateMeshRenderer.Clear();
@@ -306,6 +335,10 @@ namespace MirrorVerse.UI.Renderers
             if (immediateBoxRenderer != null)
             {
                 immediateBoxRenderer.ClearAllBoxes();
+            }
+            if (trajectoryRenderer != null)
+            {
+                trajectoryRenderer.ClearAll();
             }
             if (minimapRenderer != null)
             {

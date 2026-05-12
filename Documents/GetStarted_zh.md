@@ -41,7 +41,7 @@
 
 - 安装好后如下图所示：
 
-    <img src="https://github.com/user-attachments/assets/157ccffe-099f-4ab3-adb9-a60097b44e9a" width="70%">
+    <img src="https://github.com/user-attachments/assets/157ccffe-099f-4ab3-adb9-a60097b44e9a" width="65%">
 
 - 如果 MirrorVerse Unity SDK 有新版本发布，请在 [版本发布列表](https://github.com/deepmirrordev/MirrorVerseUnitySDK/releases) 中下载对应的新版本的 .tgz 文件包，重新在 Unity 工程里面的 `Package Manager` -> `Add Package from tarball...` 菜单里选择新版本的安装包安装即可。
 

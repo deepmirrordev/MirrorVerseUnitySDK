@@ -19,7 +19,9 @@
     uniform half4 _MainTex_TexelSize;
     uniform half  _Radius;
 
-    SAMPLER(sampler_LinearClamp);
+    #if UNITY_VERSION < 20230300
+        SAMPLER(sampler_LinearClamp);
+    #endif
     #define SAMPLE_SCREEN_TEX(tex, uv) SAMPLE_TEXTURE2D_X(tex, sampler_LinearClamp, UnityStereoTransformScreenSpaceTex(uv))
 
     struct v2f
