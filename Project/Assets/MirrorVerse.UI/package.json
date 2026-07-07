@@ -2,10 +2,10 @@
 	"name": "com.deepmirror.mirrorverse.ui",
 	"displayName": "MirrorVerse SDK UI",
 	"description": "Reference user interface implementation for using MirrorVerse SDK",
-	"version": "0.3.1",
+	"version": "0.3.2",
 	"unity": "2022.3",
 	"dependencies": {
-		"com.deepmirror.mirrorverse": "0.3.1"
+		"com.deepmirror.mirrorverse": "0.3.2"
 	},
 	"license": "Apache-2.0",
 	"author": {
