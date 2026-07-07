@@ -32,7 +32,7 @@ Latest tarballs and release notes are at the [SDK Releases](https://github.com/d
 
 - `com.deepmirror.mirrorverse-X.Y.Z.tgz` — core SDK
 - `com.deepmirror.mirrorverse.ui-X.Y.Z.tgz` — reference UI
-- `com.unity.xr.arengine-0.0.3.tgz` — Huawei AREngine XR plugin (for HarmonyOS / Honor / Huawei devices)
+- `com.unity.xr.arengine-X.Y.Z.tgz` — Huawei AREngine XR plugin (for HarmonyOS / Honor / Huawei devices; versioned independently from the SDK)
 
 If you need the optional `com.deepmirror.mirrorverse.data` package, please reach out via the support contact below.
 
@@ -72,7 +72,7 @@ SDK 包含三个 Unity 包：
 
 - `com.deepmirror.mirrorverse-X.Y.Z.tgz` — 核心 SDK
 - `com.deepmirror.mirrorverse.ui-X.Y.Z.tgz` — 参考 UI
-- `com.unity.xr.arengine-0.0.3.tgz` — 华为 AREngine XR 插件（HarmonyOS / 荣耀 / 华为设备）
+- `com.unity.xr.arengine-X.Y.Z.tgz` — 华为 AREngine XR 插件（HarmonyOS / 荣耀 / 华为设备；版本号独立于 SDK）
 
 如需可选的 `com.deepmirror.mirrorverse.data` 包，请通过下方支持渠道联系我们。
 

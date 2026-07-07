@@ -161,12 +161,14 @@ namespace MirrorVerse.UI.MirrorSceneClassyUI
                 Debug.Log("MirrorScene API is not available.");
             }
 
-            // Classy UI currently only works with landscape orientation.
+            // Classy UI works in landscape only, but supports both landscape
+            // orientations. Allow autorotation between left and right landscape;
+            // keep portrait disabled.
             Screen.autorotateToLandscapeLeft = true;
             Screen.autorotateToLandscapeRight = true;
             Screen.autorotateToPortrait = false;
             Screen.autorotateToPortraitUpsideDown = false;
-            Screen.orientation = ScreenOrientation.LandscapeLeft;
+            Screen.orientation = ScreenOrientation.AutoRotation;
         }
 
         public void ShowMenu()
